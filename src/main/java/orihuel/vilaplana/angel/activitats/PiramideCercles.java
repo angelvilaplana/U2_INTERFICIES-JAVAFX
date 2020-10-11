@@ -11,7 +11,7 @@ public class PiramideCercles extends Application {
 
     @Override
     public void start(Stage stage) {
-        stage.setTitle("Cercles (LM)");
+        stage.setTitle("Piramide Cercles");
         Group root = new Group();
 
         int widthScreen = 550;
