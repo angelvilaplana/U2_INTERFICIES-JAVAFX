@@ -1,4 +1,4 @@
-package orihuel.vilaplana.angel.activitats;
+package orihuel.vilaplana.angel.listeners;
 
 import javafx.application.Application;
 import javafx.event.EventHandler;

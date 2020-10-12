@@ -1,4 +1,4 @@
-package orihuel.vilaplana.angel.activitats;
+package orihuel.vilaplana.angel.piramide_de_cercles;
 
 import javafx.application.Application;
 import javafx.scene.Group;
