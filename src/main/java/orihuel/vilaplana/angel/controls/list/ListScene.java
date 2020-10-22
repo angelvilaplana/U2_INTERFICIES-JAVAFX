@@ -18,6 +18,7 @@ public class ListScene extends Application {
         Scene scene = new Scene(rootView);
         stage.setTitle("Ejercici 3 - List");
         stage.setScene(scene);
+        stage.setResizable(false);
         stage.show();
     }
 
