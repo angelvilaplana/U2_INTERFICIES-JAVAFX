@@ -49,35 +49,57 @@ public class ListController {
         this.listApp = listApp;
     }
 
+    /**
+     * Métode per a inicializar el nostre funcionament de
+     * l'aplicació
+     */
     @FXML
     private void initialize() {
+        // Variable per a indicar que es veuen tots els elements
+        // de la llista
         isListViewAll = true;
 
+        // Elements que es veuran a la llista al iniciar
+        // l'aplicació
         items = FXCollections.observableArrayList(
                 "Minecraft", "Counter Strike", "Fallout", "Skyrim",
                 "Fifa", "Grand Theft Auto", "Hearts of Iron", "Europa Universalis"
         );
         listView.setItems(items);
         listView.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
+
+        // Actualizem els elements del "choiceIndexList" per a poder
+        // seleccionar els elements de la llista
         updateChoiceIndexList();
 
+        // No mostrem els elements de "selecció"
+        // Sols els motrare depenent de la selecció
         btnSeleccionados.setVisible(false);
         btnSelePantalla.setVisible(false);
         labelElementSelected.setText("");
         labelElementSelect.setText("");
 
+        // Per a que sols es puga introduir números en el
+        // TextField d'eliminar elements per el index
         txtFieldDeleteElement.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 txtFieldDeleteElement.setText(newValue.replaceAll("[^\\d]", ""));
             }
         });
 
+        // Per a mostrar el botó de elegir sols seleccionats si hi ha més de un item
+        // seleccionat
         listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             int selectedItems = listView.getSelectionModel().getSelectedItems().size();
             btnSeleccionados.setVisible(selectedItems > 1 || !isListViewAll);
         });
+
+        // Listener per al listView per si cambia seleccionar el nou element
+        // seleccionat
         listView.getItems().addListener((ListChangeListener<String>) c -> handleSelectItems());
 
+        // Per a seleccionar el nou index de la llista si es major a 0
+        // Ja que el element 0 es un text per a indicar al usuari
         choiceIndexList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
             int index = (int) newValue - 1;
             if (index >= 0) {
@@ -87,6 +109,9 @@ public class ListController {
         });
     }
 
+    /**
+     * Botó per a guardar el element en la llista
+     */
     @FXML
     private void handleGuardarBtn() {
         String element = txtFieldAddElement.getText();
@@ -97,6 +122,12 @@ public class ListController {
         }
     }
 
+    /**
+     * Comprobar si el usuari a introduit "ENTER"
+     * per a guardar el resultat en la llista
+     *
+     * @param key La tecla que ha introduit l'usuari
+     */
     @FXML
     private void handleGuardarTxtField(KeyEvent key) {
         String element = txtFieldAddElement.getText();
@@ -107,6 +138,9 @@ public class ListController {
         }
     }
 
+    /**
+     * Botó per a borrar el element en la llista
+     */
     @FXML
     private void handleEliminarBtn() {
         String element = txtFieldDeleteElement.getText();
@@ -120,6 +154,12 @@ public class ListController {
         }
     }
 
+    /**
+     * Comprobar si el usuari a introduit "ENTER"
+     * per a borrar el resultat en la llista
+     *
+     * @param key La tecla que ha introduit l'usuari
+     */
     @FXML
     private void handleEliminarTxtField(KeyEvent key) {
         String element = txtFieldDeleteElement.getText();
@@ -133,6 +173,9 @@ public class ListController {
         }
     }
 
+    /**
+     * Mostrar el element seleccionat
+     */
     @FXML
     private void handleSelectItems() {
         labelElementSelect.setText("Elemento seleccionado:");
@@ -145,6 +188,9 @@ public class ListController {
         }
     }
 
+    /**
+     * Mostrar tots els elements seleccionats
+     */
     @FXML
     private void handleSeleccionados() {
         if (isListViewAll) {
@@ -167,11 +213,18 @@ public class ListController {
         }
     }
 
+    /**
+     * Mostrar tots els elements seleccionats
+     * en una altra finestra
+     */
     @FXML
     private void handleSeleVentana() {
         listApp.showListSelectElements(listView.getItems());
     }
 
+    /**
+     * Actualizar el "choiceIndexList"
+     */
     private void updateChoiceIndexList() {
         ArrayList<String> listIndex = new ArrayList<>();
         listIndex.add("Seleccionar índice");

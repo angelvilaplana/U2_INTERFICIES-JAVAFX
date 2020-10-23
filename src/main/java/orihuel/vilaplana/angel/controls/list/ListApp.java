@@ -15,6 +15,13 @@ public class ListApp extends Application {
 
     private Stage primaryStage;
 
+    /**
+     * Métode per a iniciar la aplicació
+     * principal
+     *
+     * @param stage Finestra que iniciem
+     * @throws IOException Excepció si el loader no carga
+     */
     @Override
     public void start(Stage stage) throws IOException {
         primaryStage = stage;
@@ -30,6 +37,13 @@ public class ListApp extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Métode per a mostrar els elements seleccionats en altra
+     * finestra
+     *
+     * @param selectedItems Els elements seleccionats en la llista
+     *                      principal
+     */
     public void showListSelectElements(ObservableList<String> selectedItems) {
         Stage stage = new Stage();
         stage.setTitle("Elementos Seleccionados");
