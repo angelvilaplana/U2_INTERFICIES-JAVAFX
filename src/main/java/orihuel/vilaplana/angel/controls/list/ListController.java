@@ -1,7 +1,5 @@
 package orihuel.vilaplana.angel.controls.list;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -33,15 +31,23 @@ public class ListController {
     private Button btnSeleccionados;
 
     @FXML
+    private Button btnSelePantalla;
+
+    @FXML
     private Label labelElementSelect;
 
     @FXML
     private Label labelElementSelected;
 
+    private ListApp listApp;
+
     private boolean isListViewAll;
 
     private ObservableList<String> items;
 
+    public void setMain(ListApp listApp) {
+        this.listApp = listApp;
+    }
 
     @FXML
     private void initialize() {
@@ -56,6 +62,7 @@ public class ListController {
         updateChoiceIndexList();
 
         btnSeleccionados.setVisible(false);
+        btnSelePantalla.setVisible(false);
         labelElementSelected.setText("");
         labelElementSelect.setText("");
 
@@ -65,19 +72,19 @@ public class ListController {
             }
         });
 
-        listView.getSelectionModel().selectedItemProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                int selectedItems = listView.getSelectionModel().getSelectedItems().size();
-                if (selectedItems > 1 || !isListViewAll) {
-                    btnSeleccionados.setVisible(true);
-                } else {
-                    btnSeleccionados.setVisible(false);
-                }
+        listView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+            int selectedItems = listView.getSelectionModel().getSelectedItems().size();
+            btnSeleccionados.setVisible(selectedItems > 1 || !isListViewAll);
+        });
+        listView.getItems().addListener((ListChangeListener<String>) c -> handleSelectItems());
+
+        choiceIndexList.getSelectionModel().selectedIndexProperty().addListener((observable, oldValue, newValue) -> {
+            int index = (int) newValue - 1;
+            if (index >= 0) {
+                listView.getSelectionModel().clearAndSelect(index);
+                handleSelectItems();
             }
         });
-
-        listView.getItems().addListener((ListChangeListener<String>) c -> handleSelectItems());
     }
 
     @FXML
@@ -146,6 +153,7 @@ public class ListController {
             updateChoiceIndexList();
             boxAddDel.setDisable(true);
             btnSeleccionados.setVisible(true);
+            btnSelePantalla.setVisible(true);
             btnSeleccionados.setText("Mostrar todos");
             isListViewAll = false;
         } else {
@@ -153,9 +161,15 @@ public class ListController {
             updateChoiceIndexList();
             boxAddDel.setDisable(false);
             btnSeleccionados.setVisible(false);
+            btnSelePantalla.setVisible(false);
             btnSeleccionados.setText("Mostrar seleccionados");
             isListViewAll = true;
         }
+    }
+
+    @FXML
+    private void handleSeleVentana() {
+        listApp.showListSelectElements(listView.getItems());
     }
 
     private void updateChoiceIndexList() {
