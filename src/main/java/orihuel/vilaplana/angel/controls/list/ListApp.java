@@ -31,7 +31,7 @@ public class ListApp extends Application {
         ListController listController = loader.getController();
         listController.setMain(this);
         Scene scene = new Scene(rootView);
-        primaryStage.setTitle("Ejercici 3 - List");
+        primaryStage.setTitle("Exercici 3 - List");
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();

@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="549.0" prefWidth="652.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orihuel.vilaplana.angel.controls.tableview.TableController">
+   <children>
+      <TableView prefHeight="256.0" prefWidth="611.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="21.0" AnchorPane.topAnchor="20.0">
+        <columns>
+          <TableColumn fx:id="tableName" prefWidth="150.0" text="Nom" />
+          <TableColumn prefWidth="351.0" text="Dimensions">
+               <columns>
+                  <TableColumn fx:id="tableHight" prefWidth="120.0" text="Alt" />
+                  <TableColumn fx:id="tableWidth" prefWidth="120.0" text="Ample" />
+                  <TableColumn fx:id="tableLong" prefWidth="120.0" text="Llarg" />
+               </columns>
+            </TableColumn>
+            <TableColumn fx:id="tableWeight" prefWidth="100.0" text="Pes" />
+        </columns>
+      </TableView>
+      <VBox alignment="CENTER" layoutX="35.0" layoutY="316.0" prefHeight="163.0" prefWidth="318.0" spacing="15.0" AnchorPane.leftAnchor="35.0">
+         <children>
+            <HBox prefHeight="23.0" prefWidth="360.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="110.0" text="Nom del producte">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtFieldName" prefHeight="27.0" prefWidth="200.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="23.0" prefWidth="360.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="110.0" text="Dimensions">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+                  <HBox prefHeight="27.0" prefWidth="200.0" spacing="10.0">
+                     <children>
+                        <TextField fx:id="txtFieldHigh" prefHeight="27.0" prefWidth="60.0" promptText="Alt" />
+                        <TextField fx:id="txtFieldWidth" prefHeight="27.0" prefWidth="60.0" promptText="Ample" />
+                        <TextField fx:id="txtFieldLong" prefHeight="27.0" prefWidth="60.0" promptText="Llarg" />
+                     </children>
+                  </HBox>
+               </children>
+            </HBox>
+            <HBox prefHeight="23.0" prefWidth="360.0">
+               <children>
+                  <Label prefHeight="27.0" prefWidth="110.0" text="Pes">
+                     <font>
+                        <Font name="Arial" size="12.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="txtFieldWeight" prefHeight="27.0" prefWidth="200.0" />
+               </children>
+            </HBox>
+            <Button alignment="CENTER_RIGHT" mnemonicParsing="false" onAction="#handleSave" text="Guardar">
+               <VBox.margin>
+                  <Insets left="240.0" />
+               </VBox.margin>
+            </Button>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
