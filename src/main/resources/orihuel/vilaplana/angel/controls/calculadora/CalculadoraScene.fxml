@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="400.0" prefWidth="650.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orihuel.vilaplana.angel.controls.calculadora.CalculadoraController">
+   <children>
+      <SplitPane dividerPositions="0.62" prefHeight="439.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="429.0" prefWidth="391.0">
+               <children>
+                  <VBox prefHeight="200.0" prefWidth="406.0" spacing="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                     <children>
+                        <Label fx:id="labelHead" prefHeight="23.0" prefWidth="438.0" text="SUMA">
+                           <font>
+                              <Font name="Arial Bold" size="20.0" />
+                           </font>
+                        </Label>
+                        <TextField fx:id="txtFieldOper1" alignment="CENTER" promptText="Operador 1" />
+                        <TextField fx:id="txtFieldOper2" alignment="CENTER" promptText="Operador 2" />
+                        <Button mnemonicParsing="false" onAction="#handleResult" prefHeight="27.0" prefWidth="418.0" text="=">
+                           <font>
+                              <Font size="16.0" />
+                           </font>
+                        </Button>
+                        <TextField fx:id="txtFieldResult" alignment="CENTER" editable="false" promptText="Resultado" />
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="246.0">
+               <children>
+                  <VBox layoutX="59.0" layoutY="7.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                     <children>
+                        <RadioButton fx:id="radioSum" mnemonicParsing="false" selected="true" text="Suma">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                           <toggleGroup>
+                              <ToggleGroup fx:id="operations" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton fx:id="radioRest" mnemonicParsing="false" text="Resta" toggleGroup="$operations">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="radioMult" mnemonicParsing="false" text="Multiplicación" toggleGroup="$operations">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="radioDiv" mnemonicParsing="false" text="División" toggleGroup="$operations">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="radioElev2" mnemonicParsing="false" text="Elevado a 2" toggleGroup="$operations">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="radioElev3" mnemonicParsing="false" text="Elevado a 3" toggleGroup="$operations">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="radioSqrt" mnemonicParsing="false" text="Raíz Cuadrada" toggleGroup="$operations">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="radioSin" mnemonicParsing="false" text="Seno" toggleGroup="$operations">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="radioCos" mnemonicParsing="false" text="Coseno" toggleGroup="$operations">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="radioTan" mnemonicParsing="false" text="Tangente" textOverrun="CLIP" toggleGroup="$operations" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="radioLog10" mnemonicParsing="false" text="Logaritmo Base 10" textOverrun="CLIP" toggleGroup="$operations" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="radioLogNep" mnemonicParsing="false" text="Logaritmo Neperiano" textOverrun="CLIP" toggleGroup="$operations" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </RadioButton>
+                        <RadioButton fx:id="radioExpNat" mnemonicParsing="false" text="Función Exponencial Natural" textOverrun="CLIP" toggleGroup="$operations" wrapText="true">
+                           <font>
+                              <Font size="14.0" />
+                           </font>
+                        </RadioButton>
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
