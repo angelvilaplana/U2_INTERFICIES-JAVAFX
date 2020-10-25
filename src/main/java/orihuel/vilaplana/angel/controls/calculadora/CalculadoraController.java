@@ -60,15 +60,25 @@ public class CalculadoraController {
     private RadioButton radioExpNat;
 
 
+    /**
+     * Inicialitzem el controlador
+     */
     @FXML
     private void initialize() {
+        // Fem que els TextFields soles puguen introduir decimals
         txtFieldDecimals(txtFieldOper1);
         txtFieldDecimals(txtFieldOper2);
 
+        // Listener per als nostres RadioButtons per a veure quines operacions necesiten
+        // un únic paràmetre
         operations.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
             RadioButton operation = (RadioButton) newValue.getToggleGroup().getSelectedToggle();
+
+            // Posem el nom de la operació en el Label principal
             labelHead.setText(operation.getText());
 
+            // Ocultem els paràmetres si no cumpleixen alguna
+            // de les condicions
             txtFieldOper2.setManaged(
                        !operation.equals(radioElev2)
                     && !operation.equals(radioElev3)
@@ -81,14 +91,18 @@ public class CalculadoraController {
                     && !operation.equals(radioExpNat)
             );
 
+            // Posem el resultat en blanc per a no confondrens
             txtFieldResult.setText("");
         });
     }
 
+    /**
+     * Acció quan clickem el botó de "=" per a que ens mostre el resultat
+     */
     @FXML
     void handleResult() {
-        RadioButton operation = (RadioButton) operations.getSelectedToggle();
-
+        // Obtenim el valor del primer TextField sempre y quan no estiga buit
+        // y estiga disponible
         double oper1 = 0;
         if (txtFieldOper1.managedProperty().get()) {
             if (!txtFieldOper1.getText().isEmpty()) {
@@ -101,6 +115,8 @@ public class CalculadoraController {
             }
         }
 
+        // Obtenim el valor del segon TextField sempre y quan no estiga buit
+        // y estiga disponible
         double oper2 = 0;
         if (txtFieldOper2.managedProperty().get()) {
             if (!txtFieldOper2.getText().isEmpty()) {
@@ -115,6 +131,10 @@ public class CalculadoraController {
 
         double result = 0;
 
+        // Obtenim la operació seleccionada
+        RadioButton operation = (RadioButton) operations.getSelectedToggle();
+
+        // Mirem quina operació esta seleccionada y obtenim el resultat
         if (operation.equals(radioSum)) {
             result = oper1 + oper2;
         } else if (operation.equals(radioRest)) {
@@ -143,6 +163,8 @@ public class CalculadoraController {
             result = Math.exp(oper1);
         }
 
+        // Condició per a verificar si el resultat es finit o infinit.
+        // Si es infinit ens apareixera un missatge d'error
         if (Double.isFinite(result)) {
             txtFieldResult.setText(String.valueOf(result));
         } else {
@@ -167,6 +189,11 @@ public class CalculadoraController {
         });
     }
 
+    /**
+     * Métode per a mostrar la finestra de error
+     * @param header Text principal del error
+     * @param message Missatge del error
+     */
     private void showErrorWindow(String header, String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
         alert.setTitle("Error");
