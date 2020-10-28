@@ -5,6 +5,8 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
+import java.time.LocalDate;
+
 public class FormulariController {
 
     @FXML
@@ -17,7 +19,7 @@ public class FormulariController {
     private TextArea txtFieldCommentary;
 
     @FXML
-    private ToggleGroup sex;
+    private ToggleGroup sexGroup;
 
     @FXML
     private ChoiceBox<String> choiceCity;
@@ -102,7 +104,16 @@ public class FormulariController {
 
     @FXML
     private void handleResum() throws Exception {
-        formulariApp.showSummary();
+        String name = txtFieldName.getText();
+        String surname = txtFieldSurname.getText();
+        String commentary = txtFieldCommentary.getText();
+        String sex = ((RadioButton) sexGroup.getSelectedToggle()).getText();
+        String city = choiceCity.getValue();
+        String operatingSystem = choiceOperatingSystem.getValue();
+        int computerHours = choiceHoursComputer.getValue();
+        LocalDate formDate = datePickForm.getValue();
+        FormulariData formulariData = new FormulariData(name, surname, commentary, sex, city, operatingSystem, computerHours, formDate);
+        formulariApp.showSummary(formulariData);
     }
 
 }

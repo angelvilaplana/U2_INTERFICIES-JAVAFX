@@ -54,7 +54,7 @@
                   <HBox prefHeight="90.0" prefWidth="290.0" spacing="20.0">
                      <children>
                         <Label prefHeight="27.0" prefWidth="175.0" text="Comentari" />
-                        <TextArea fx:id="txtFieldCommentary" prefHeight="90.0" prefWidth="336.0">
+                        <TextArea fx:id="txtFieldCommentary" prefHeight="90.0" prefWidth="336.0" wrapText="true">
                            <tooltip>
                               <Tooltip text="Introduïsca el comentari ací" />
                            </tooltip></TextArea>
@@ -65,12 +65,12 @@
                         <Label prefHeight="27.0" prefWidth="108.0" text="Sexe" />
                         <RadioButton mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Home">
                            <toggleGroup>
-                              <ToggleGroup fx:id="sex" />
+                              <ToggleGroup fx:id="sexGroup" />
                            </toggleGroup>
                            <tooltip>
                               <Tooltip text="Selecciona aquesta si eres home" />
                            </tooltip></RadioButton>
-                        <RadioButton mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Dona" toggleGroup="$sex">
+                        <RadioButton mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Dona" toggleGroup="$sexGroup">
                            <tooltip>
                               <Tooltip text="Selecciona aquesta si eres dona" />
                            </tooltip></RadioButton>

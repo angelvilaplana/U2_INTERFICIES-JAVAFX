@@ -26,7 +26,7 @@ public class FormulariApp extends Application {
         primaryStage.show();
     }
 
-    public void showSummary() throws Exception {
+    public void showSummary(FormulariData formulariData) throws Exception {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(FormulariApp.class.getResource("ResumScene.fxml"));
@@ -37,9 +37,9 @@ public class FormulariApp extends Application {
         stage.initOwner(primaryStage);
         stage.setScene(scene);
         stage.setResizable(false);
+        ResumController controller = loader.getController();
+        controller.initialize(formulariData);
         stage.show();
-
-
     }
 
     public static void main(String[] args) {
