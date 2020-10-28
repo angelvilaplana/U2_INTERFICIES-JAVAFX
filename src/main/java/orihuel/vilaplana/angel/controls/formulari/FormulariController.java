@@ -4,8 +4,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.util.StringConverter;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class FormulariController {
 
@@ -82,7 +84,7 @@ public class FormulariController {
         Image appleImage = new Image(String.valueOf(FormulariController.class.getResource("images/apple.png")));
         Image linuxImage = new Image(String.valueOf(FormulariController.class.getResource("images/linux.png")));
         Image windowsImage = new Image(String.valueOf(FormulariController.class.getResource("images/windows.png")));
-
+        // Depenent de la selecció apareixera una imatge o altra
         choiceOperatingSystem.getSelectionModel().selectedItemProperty()
                 .addListener((observable, oldValue, newValue) -> {
                     switch (newValue) {
@@ -100,8 +102,42 @@ public class FormulariController {
                     }
                 }
         );
+
+        // Que no ens mostre els números de les setmanes
+        datePickForm.setShowWeekNumbers(false);
+        // Format de la data a introduïr
+        String patternDate = "dd/MM/yyyy";
+        datePickForm.setPromptText(patternDate);
+        // Convertim la data del DatePicker al format del "patternDate"
+        datePickForm.setConverter(new StringConverter<>() {
+            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern(patternDate);
+
+            @Override
+            public String toString(LocalDate date) {
+                if (date != null) {
+                    return dateFormatter.format(date);
+                } else {
+                    return "";
+                }
+            }
+
+            @Override
+            public LocalDate fromString(String string) {
+                if (string != null && !string.isEmpty()) {
+                    return LocalDate.parse(string, dateFormatter);
+                } else {
+                    return null;
+                }
+            }
+        });
     }
 
+    /**
+     * Acció quan fem click al mostrar el resum
+     * Aquest métode el que farà serà obrir una nova finestra
+     * amb el resultat que s'ha introduït al formulari
+     * @throws Exception Problemes al cargar la escena
+     */
     @FXML
     private void handleResum() throws Exception {
         String name = txtFieldName.getText();

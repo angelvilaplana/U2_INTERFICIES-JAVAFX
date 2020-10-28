@@ -3,6 +3,8 @@ package orihuel.vilaplana.angel.controls.formulari;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 
+import java.time.format.DateTimeFormatter;
+
 public class ResumController {
 
     @FXML
@@ -29,6 +31,11 @@ public class ResumController {
     @FXML
     private Label labelFormDate;
 
+    /**
+     * El nostre propi inicializador de la escena on cargara totes les dades
+     * del formulari anterior a esta escena
+     * @param formulariData Objecte de les dades del formulari
+     */
     public void initialize(FormulariData formulariData) {
         labelName.setText(formulariData.getName());
         labelSurname.setText(formulariData.getSurname());
@@ -37,7 +44,7 @@ public class ResumController {
         labelCity.setText(formulariData.getCity());
         labelOperatingSystem.setText(formulariData.getOperatingSystem());
         labelComputerHours.setText(String.valueOf(formulariData.getComputerHours()));
-        labelFormDate.setText(String.valueOf(formulariData.getFormDate()));
+        labelFormDate.setText(formulariData.getFormDate().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
     }
 
 }

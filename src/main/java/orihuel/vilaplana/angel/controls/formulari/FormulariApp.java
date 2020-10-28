@@ -9,6 +9,7 @@ import javafx.stage.Stage;
 
 public class FormulariApp extends Application {
 
+    // Escena principal
     private Stage primaryStage;
 
     @Override
@@ -26,6 +27,11 @@ public class FormulariApp extends Application {
         primaryStage.show();
     }
 
+    /**
+     * Métode que ens mostra el resum del formulari en una nova finestra
+     * @param formulariData Objecte de les dades del formulari
+     * @throws Exception Si ocurreix algun error al cargar el FXML
+     */
     public void showSummary(FormulariData formulariData) throws Exception {
         Stage stage = new Stage();
         FXMLLoader loader = new FXMLLoader();
