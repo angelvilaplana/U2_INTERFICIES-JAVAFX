@@ -1,5 +1,7 @@
 package orihuel.vilaplana.angel.controls.formulari;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -8,6 +10,7 @@ import javafx.util.StringConverter;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class FormulariController {
 
@@ -79,6 +82,9 @@ public class FormulariController {
      */
     @FXML
     private void initialize() {
+        // Comprobar els errors que pot produir-se en el formulari
+        checkErrorsForm();
+
         // Posem en invisible els erros
         labelErrName.setVisible(false);
         labelErrSurname.setVisible(false);
@@ -137,8 +143,7 @@ public class FormulariController {
                 }
         );
 
-        // Per a que sols es puga introduir números en el
-        // Spinner per a elegir la hora
+        // Per a que sols es puga introduir números en el Spinner per a elegir la hora
         choiceHoursComputer.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 choiceHoursComputer.getEditor().setText(oldValue);
@@ -170,6 +175,80 @@ public class FormulariController {
                 } else {
                     return null;
                 }
+            }
+        });
+    }
+
+    /**
+     * Métode per a comprobar els errors en el formulari y avisar
+     * al usuari mediant Labels
+     */
+    private void checkErrorsForm() {
+        txtFieldName.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue && txtFieldName.getText().isEmpty()) {
+                labelErrName.setVisible(true);
+            } else if (!txtFieldName.getText().isEmpty()) {
+                labelErrName.setVisible(false);
+            }
+        });
+
+        txtFieldSurname.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue && txtFieldSurname.getText().isEmpty()) {
+                labelErrSurname.setVisible(true);
+            } else if (!txtFieldSurname.getText().isEmpty()) {
+                labelErrSurname.setVisible(false);
+            }
+        });
+
+        txtFieldCommentary.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue && txtFieldCommentary.getText().isEmpty()) {
+                labelErrComentary.setVisible(true);
+            } else if (!txtFieldCommentary.getText().isEmpty()) {
+                labelErrComentary.setVisible(false);
+            }
+        });
+
+        sexGroup.selectedToggleProperty().addListener((observable, oldValue, newValue) -> labelErrSex.setVisible(false));
+
+        choiceCity.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue && choiceCity.getSelectionModel().getSelectedIndex() == 0) {
+                labelErrCity.setVisible(true);
+            } else if (choiceCity.getSelectionModel().getSelectedIndex() != 0) {
+                labelErrCity.setVisible(false);
+            }
+        });
+
+        choiceOperatingSystem.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue && choiceOperatingSystem.getSelectionModel().getSelectedIndex() == 0) {
+                labelErrSO.setVisible(true);
+            } else if (choiceOperatingSystem.getSelectionModel().getSelectedIndex() != 0) {
+                labelErrSO.setVisible(false);
+            }
+        });
+
+        choiceHoursComputer.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue && choiceHoursComputer.getValue() == null) {
+                labelErrHours.setVisible(true);
+            } else if (choiceHoursComputer.getValue() != null) {
+                labelErrHours.setVisible(false);
+            }
+        });
+
+        datePickForm.focusedProperty().addListener((observable, oldValue, newValue) -> {
+            String dateText = datePickForm.getEditor().getText();
+            if (!dateText.isEmpty()) {
+                try {
+                    datePickForm.setValue(LocalDate.parse(dateText, DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                    labelErrDate.setVisible(false);
+                } catch (DateTimeParseException e) {
+                    labelErrDate.setText("Format introduït no vàlid");
+                    labelErrDate.setVisible(true);
+                }
+            } else if (!newValue && datePickForm.getValue() == null) {
+                labelErrDate.setText("Tens que indicar la data!");
+                labelErrDate.setVisible(true);
+            } else if (datePickForm.getValue() != null) {
+                labelErrDate.setVisible(false);
             }
         });
     }

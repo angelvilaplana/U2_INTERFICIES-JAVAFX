@@ -75,7 +75,7 @@
                            </tooltip></TextArea>
                      </children>
                   </HBox>
-                  <Label fx:id="labelErrSex" prefHeight="17.0" prefWidth="295.0" text="Tens que introduir el sexe!" textFill="RED" translateY="5.0">
+                  <Label fx:id="labelErrSex" prefHeight="17.0" prefWidth="295.0" text="Tens que seleccionar el sexe!" textFill="RED" translateY="5.0">
                      <VBox.margin>
                         <Insets left="125.0" />
                      </VBox.margin>
@@ -96,7 +96,7 @@
                            </tooltip></RadioButton>
                      </children>
                   </HBox>
-                  <Label fx:id="labelErrCity" prefHeight="17.0" prefWidth="295.0" text="Tens que introduir la ciutat!" textFill="RED" translateY="5.0">
+                  <Label fx:id="labelErrCity" prefHeight="17.0" prefWidth="295.0" text="Tens que seleccionar la ciutat!" textFill="RED" translateY="5.0">
                      <VBox.margin>
                         <Insets left="125.0" />
                      </VBox.margin>
@@ -110,7 +110,7 @@
                            </tooltip></ChoiceBox>
                      </children>
                   </HBox>
-                  <Label fx:id="labelErrSO" prefHeight="17.0" prefWidth="295.0" text="Tens que introduir el sistema operatiu!" textFill="RED" translateY="8.0">
+                  <Label fx:id="labelErrSO" prefHeight="17.0" prefWidth="295.0" text="Tens que seleccionar el sistema operatiu!" textFill="RED" translateY="8.0">
                      <VBox.margin>
                         <Insets left="125.0" />
                      </VBox.margin>
