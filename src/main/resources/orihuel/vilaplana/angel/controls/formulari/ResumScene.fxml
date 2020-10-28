@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane prefHeight="500.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orihuel.vilaplana.angel.controls.formulari.ResumController">
+   <children>
+      <VBox layoutX="260.0" layoutY="82.0" prefHeight="200.0" prefWidth="100.0" spacing="10.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="100.0" prefWidth="150.0" text="Nom">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" minWidth="300.0" prefHeight="150.0" prefWidth="300.0" text="Label" wrapText="true" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" style="-fx-border-width: 5;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="83.0" prefWidth="150.0" text="Cognom">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" minWidth="300.0" prefHeight="83.0" prefWidth="34.0" text="Label" wrapText="true" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" style="-fx-border-width: 5;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="97.0" prefWidth="150.0" text="Comentari">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" minWidth="300.0" prefHeight="78.0" prefWidth="34.0" text="Label" wrapText="true" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" style="-fx-border-width: 5;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="85.0" prefWidth="150.0" text="Sexe">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" minWidth="300.0" prefHeight="79.0" prefWidth="34.0" text="Label" wrapText="true" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" style="-fx-border-width: 5;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="85.0" prefWidth="150.0" text="Ciutat">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" minWidth="300.0" prefHeight="84.0" prefWidth="34.0" text="Label" wrapText="true" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" style="-fx-border-width: 5;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="73.0" prefWidth="150.0" text="Sistema Operatiu">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" minWidth="300.0" prefHeight="106.0" prefWidth="34.0" text="Label" wrapText="true" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0" style="-fx-border-width: 5;">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="107.0" prefWidth="150.0" text="Hores que passes davant l'ordinador" wrapText="true">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" minWidth="300.0" prefHeight="83.0" prefWidth="34.0" text="Label" wrapText="true" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" spacing="15.0">
+               <children>
+                  <Label alignment="TOP_LEFT" prefHeight="120.0" prefWidth="150.0" text="Data d'emplenat del formulari" wrapText="true">
+                     <font>
+                        <Font name="Arial Bold" size="13.0" />
+                     </font>
+                  </Label>
+                  <Label alignment="TOP_LEFT" minWidth="300.0" prefHeight="125.0" prefWidth="34.0" text="Label" wrapText="true" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
