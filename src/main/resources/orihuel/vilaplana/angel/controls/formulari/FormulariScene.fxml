@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="513.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orihuel.vilaplana.angel.controls.formulari.FormulariController">
+<AnchorPane prefHeight="650.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orihuel.vilaplana.angel.controls.formulari.FormulariController">
    <children>
       <GridPane layoutX="81.0" layoutY="65.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -31,8 +31,13 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <VBox prefHeight="466.0" prefWidth="394.0" spacing="10.0" GridPane.rowSpan="2">
+            <VBox prefHeight="466.0" prefWidth="394.0" spacing="5.0" GridPane.rowSpan="2">
                <children>
+                  <Label fx:id="labelErrName" prefHeight="17.0" prefWidth="266.0" text="Tens que introduir el nom!" textFill="RED" translateY="5.0">
+                     <VBox.margin>
+                        <Insets left="125.0" />
+                     </VBox.margin>
+                  </Label>
                   <HBox prefHeight="13.0" prefWidth="290.0" spacing="20.0">
                      <children>
                         <Label prefHeight="27.0" prefWidth="175.0" text="Nom" />
@@ -42,6 +47,11 @@
                            </tooltip></TextField>
                      </children>
                   </HBox>
+                  <Label fx:id="labelErrSurname" prefHeight="17.0" prefWidth="295.0" text="Tens que introduir el cognom!" textFill="RED" translateY="5.0">
+                     <VBox.margin>
+                        <Insets left="125.0" />
+                     </VBox.margin>
+                  </Label>
                   <HBox prefHeight="13.0" prefWidth="290.0" spacing="20.0">
                      <children>
                         <Label prefHeight="27.0" prefWidth="175.0" text="Cognom" />
@@ -51,6 +61,11 @@
                            </tooltip></TextField>
                      </children>
                   </HBox>
+                  <Label fx:id="labelErrComentary" prefHeight="17.0" prefWidth="295.0" text="Tens que introduir un comentari!" textFill="RED" translateY="5.0">
+                     <VBox.margin>
+                        <Insets left="125.0" />
+                     </VBox.margin>
+                  </Label>
                   <HBox prefHeight="90.0" prefWidth="290.0" spacing="20.0">
                      <children>
                         <Label prefHeight="27.0" prefWidth="175.0" text="Comentari" />
@@ -60,6 +75,11 @@
                            </tooltip></TextArea>
                      </children>
                   </HBox>
+                  <Label fx:id="labelErrSex" prefHeight="17.0" prefWidth="295.0" text="Tens que introduir el sexe!" textFill="RED" translateY="5.0">
+                     <VBox.margin>
+                        <Insets left="125.0" />
+                     </VBox.margin>
+                  </Label>
                   <HBox prefHeight="28.0" prefWidth="404.0" spacing="20.0">
                      <children>
                         <Label prefHeight="27.0" prefWidth="108.0" text="Sexe" />
@@ -76,6 +96,11 @@
                            </tooltip></RadioButton>
                      </children>
                   </HBox>
+                  <Label fx:id="labelErrCity" prefHeight="17.0" prefWidth="295.0" text="Tens que introduir la ciutat!" textFill="RED" translateY="5.0">
+                     <VBox.margin>
+                        <Insets left="125.0" />
+                     </VBox.margin>
+                  </Label>
                   <HBox prefHeight="13.0" prefWidth="290.0" spacing="20.0">
                      <children>
                         <Label prefHeight="27.0" prefWidth="121.0" text="Ciutat" />
@@ -85,9 +110,14 @@
                            </tooltip></ChoiceBox>
                      </children>
                   </HBox>
+                  <Label fx:id="labelErrSO" prefHeight="17.0" prefWidth="295.0" text="Tens que introduir el sistema operatiu!" textFill="RED" translateY="8.0">
+                     <VBox.margin>
+                        <Insets left="125.0" />
+                     </VBox.margin>
+                  </Label>
                   <HBox prefHeight="37.0" prefWidth="394.0" spacing="20.0">
                      <children>
-                        <Label alignment="CENTER_RIGHT" prefHeight="36.0" prefWidth="121.0" text="Sistema Operatiu" textOverrun="CLIP" wrapText="true" />
+                        <Label prefHeight="36.0" prefWidth="121.0" text="Sistema Operatiu" textOverrun="CLIP" wrapText="true" />
                         <ChoiceBox fx:id="choiceOperatingSystem" prefHeight="3.0" prefWidth="283.0">
                            <HBox.margin>
                               <Insets top="5.0" />
@@ -98,6 +128,11 @@
                         </ChoiceBox>
                      </children>
                   </HBox>
+                  <Label fx:id="labelErrHours" prefHeight="17.0" prefWidth="295.0" text="Tens que indicar les hores!" textFill="RED" translateY="13.0">
+                     <VBox.margin>
+                        <Insets left="125.0" />
+                     </VBox.margin>
+                  </Label>
                   <HBox prefHeight="51.0" prefWidth="394.0" spacing="20.0">
                      <children>
                         <Label prefHeight="53.0" prefWidth="119.0" text="Hores que passe davant l'ordinador" wrapText="true" />
@@ -111,6 +146,11 @@
                         </Spinner>
                      </children>
                   </HBox>
+                  <Label fx:id="labelErrDate" prefHeight="17.0" prefWidth="295.0" text="Tens que indicar la data!" textFill="RED" translateY="8.0">
+                     <VBox.margin>
+                        <Insets left="125.0" />
+                     </VBox.margin>
+                  </Label>
                   <HBox prefHeight="34.0" prefWidth="394.0" spacing="20.0">
                      <children>
                         <Label prefHeight="87.0" prefWidth="107.0" text="Data d'emplenat del formulari" wrapText="true" />
@@ -136,7 +176,7 @@
             </VBox>
             <AnchorPane prefHeight="306.0" prefWidth="179.0" GridPane.columnIndex="1">
                <children>
-                  <ImageView fx:id="imageOperativeSystem" fitHeight="119.0" fitWidth="100.0" layoutX="125.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="187.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="0.0" />
+                  <ImageView fx:id="imageOperativeSystem" fitHeight="119.0" fitWidth="100.0" layoutX="125.0" layoutY="75.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="187.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0" />
                </children>
             </AnchorPane>
          </children>

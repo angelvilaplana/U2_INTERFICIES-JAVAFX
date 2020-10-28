@@ -12,25 +12,49 @@ import java.time.format.DateTimeFormatter;
 public class FormulariController {
 
     @FXML
+    private Label labelErrName;
+
+    @FXML
     private TextField txtFieldName;
+
+    @FXML
+    private Label labelErrSurname;
 
     @FXML
     private TextField txtFieldSurname;
 
     @FXML
+    private Label labelErrComentary;
+
+    @FXML
     private TextArea txtFieldCommentary;
+
+    @FXML
+    private Label labelErrSex;
 
     @FXML
     private ToggleGroup sexGroup;
 
     @FXML
+    private Label labelErrCity;
+
+    @FXML
     private ChoiceBox<String> choiceCity;
+
+    @FXML
+    private Label labelErrSO;
 
     @FXML
     private ChoiceBox<String> choiceOperatingSystem;
 
     @FXML
+    private Label labelErrHours;
+
+    @FXML
     private Spinner<Integer> choiceHoursComputer;
+
+    @FXML
+    private Label labelErrDate;
 
     @FXML
     private DatePicker datePickForm;
@@ -55,6 +79,16 @@ public class FormulariController {
      */
     @FXML
     private void initialize() {
+        // Posem en invisible els erros
+        labelErrName.setVisible(false);
+        labelErrSurname.setVisible(false);
+        labelErrComentary.setVisible(false);
+        labelErrSex.setVisible(false);
+        labelErrCity.setVisible(false);
+        labelErrSO.setVisible(false);
+        labelErrHours.setVisible(false);
+        labelErrDate.setVisible(false);
+
         // Anyadim les ciutats per al ChoiceBox
         choiceCity.getItems().add("Selecciona una ciutat...");
         choiceCity.getItems().add("Alcoi");
@@ -103,6 +137,14 @@ public class FormulariController {
                 }
         );
 
+        // Per a que sols es puga introduir números en el
+        // Spinner per a elegir la hora
+        choiceHoursComputer.getEditor().textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*")) {
+                choiceHoursComputer.getEditor().setText(oldValue);
+            }
+        });
+
         // Que no ens mostre els números de les setmanes
         datePickForm.setShowWeekNumbers(false);
         // Format de la data a introduïr
@@ -133,23 +175,103 @@ public class FormulariController {
     }
 
     /**
+     * Métode per a obtindre la informació del formulari
+     * Comprobem també si tots els camps estàn complets.
+     * Si no estàn farem visibles els labels de error i els farem
+     * invisibles si estàn completats.
+     * @return (0) Si tots els camps estàn complets retornara la informació
+     *         del formulari. (1) Si no, tornara null
+     */
+    private FormulariData getFormulariData() {
+        boolean isValidData = true;
+
+        String name = txtFieldName.getText();
+        if (name.isEmpty()) {
+            labelErrName.setVisible(true);
+            isValidData = false;
+        } else {
+            labelErrName.setVisible(false);
+        }
+
+        String surname = txtFieldSurname.getText();
+        if (surname.isEmpty()) {
+            labelErrSurname.setVisible(true);
+            isValidData = false;
+        } else {
+            labelErrSurname.setVisible(false);
+        }
+
+        String commentary = txtFieldCommentary.getText();
+        if (commentary.isEmpty()) {
+            labelErrComentary.setVisible(true);
+            isValidData = false;
+        } else {
+            labelErrComentary.setVisible(false);
+        }
+
+        String sex = null;
+        if (sexGroup.getSelectedToggle() == null) {
+            labelErrSex.setVisible(true);
+            isValidData = false;
+        } else {
+            sex = ((RadioButton) sexGroup.getSelectedToggle()).getText();
+            labelErrSex.setVisible(false);
+        }
+
+        String city = choiceCity.getValue();
+        if (choiceCity.getSelectionModel().getSelectedIndex() == 0) {
+            labelErrCity.setVisible(true);
+            isValidData = false;
+        } else {
+            labelErrCity.setVisible(false);
+        }
+
+        String operatingSystem = choiceOperatingSystem.getValue();
+        if (choiceOperatingSystem.getSelectionModel().getSelectedIndex() == 0) {
+            labelErrSO.setVisible(true);
+            isValidData = false;
+        } else {
+            labelErrSO.setVisible(false);
+        }
+
+        int computerHours = -1;
+        if (choiceHoursComputer.getValue() == null) {
+            labelErrHours.setVisible(true);
+            isValidData = false;
+        } else {
+            computerHours = choiceHoursComputer.getValue();
+            labelErrHours.setVisible(false);
+        }
+
+        LocalDate formDate = null;
+        if (datePickForm.getValue() == null) {
+            labelErrDate.setVisible(true);
+            isValidData = false;
+        } else {
+            formDate = datePickForm.getValue();
+            labelErrDate.setVisible(false);
+        }
+
+        if (isValidData) {
+            return new FormulariData(name, surname, commentary, sex, city, operatingSystem, computerHours, formDate);
+        } else {
+            return null;
+        }
+    }
+
+    /**
      * Acció quan fem click al mostrar el resum
      * Aquest métode el que farà serà obrir una nova finestra
-     * amb el resultat que s'ha introduït al formulari
+     * amb el resultat que s'ha introduït al formulari sempre i
+     * quan estiguen tots els camps complets
      * @throws Exception Problemes al cargar la escena
      */
     @FXML
     private void handleResum() throws Exception {
-        String name = txtFieldName.getText();
-        String surname = txtFieldSurname.getText();
-        String commentary = txtFieldCommentary.getText();
-        String sex = ((RadioButton) sexGroup.getSelectedToggle()).getText();
-        String city = choiceCity.getValue();
-        String operatingSystem = choiceOperatingSystem.getValue();
-        int computerHours = choiceHoursComputer.getValue();
-        LocalDate formDate = datePickForm.getValue();
-        FormulariData formulariData = new FormulariData(name, surname, commentary, sex, city, operatingSystem, computerHours, formDate);
-        formulariApp.showSummary(formulariData);
+        FormulariData formulariData = getFormulariData();
+        if (formulariData != null) {
+            formulariApp.showSummary(formulariData);
+        }
     }
 
 }
