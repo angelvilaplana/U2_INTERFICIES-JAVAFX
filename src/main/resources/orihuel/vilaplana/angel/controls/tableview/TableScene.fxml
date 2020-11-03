@@ -6,6 +6,7 @@
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.Blend?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -25,6 +26,9 @@
             </TableColumn>
             <TableColumn fx:id="tableWeight" prefWidth="100.0" text="Pes" />
         </columns>
+         <effect>
+            <Blend mode="MULTIPLY" />
+         </effect>
       </TableView>
       <VBox alignment="CENTER" layoutX="35.0" layoutY="316.0" prefHeight="163.0" prefWidth="500.0" spacing="15.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="30.0" AnchorPane.rightAnchor="20.0">
          <children>

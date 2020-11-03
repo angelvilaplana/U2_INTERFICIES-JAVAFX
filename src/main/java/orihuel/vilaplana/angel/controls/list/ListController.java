@@ -10,6 +10,14 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
+/**
+ * Efectes incluits en el FXML:
+ *
+ *  - listView:
+ *      - Efecte utilitzat: InnerShadow
+ *      - Motiu: Per a veure la vora de la llista
+ *
+ */
 public class ListController {
 
     @FXML

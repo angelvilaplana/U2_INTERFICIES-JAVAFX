@@ -3,6 +3,20 @@ package orihuel.vilaplana.angel.controls.calculadora;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 
+/**
+ * Efectes incluits en el FXML:
+ *
+ *  - labelHead:
+ *      - Efecte utilitzat: DropShadow
+ *      - Motiu: Per a que el títol siga més llamatiu i
+ *               tinga un aspecte mes guai
+ *
+ *  - AnchorPane (Operacions de la dreta):
+ *      - Efecte utilitzat: Bloom
+ *      - Motiu: Per a que els cercles dels RadioButtons
+ *               siguen mes blancs i amb menys sombra
+ *
+ */
 public class CalculadoraController {
 
     @FXML

@@ -6,6 +6,8 @@
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.effect.Bloom?>
+<?import javafx.scene.effect.DropShadow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -18,10 +20,13 @@
                <children>
                   <VBox prefHeight="200.0" prefWidth="406.0" spacing="20.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                      <children>
-                        <Label fx:id="labelHead" prefHeight="23.0" prefWidth="438.0" text="SUMA">
+                        <Label fx:id="labelHead" prefHeight="23.0" prefWidth="438.0" text="SUMA" textFill="WHITE">
                            <font>
                               <Font name="Arial Bold" size="20.0" />
                            </font>
+                           <effect>
+                              <DropShadow blurType="ONE_PASS_BOX" height="17.21" offsetY="1.0" radius="7.535" spread="1.0" width="14.93" />
+                           </effect>
                         </Label>
                         <TextField fx:id="txtFieldOper1" alignment="CENTER" promptText="Operador 1" />
                         <TextField fx:id="txtFieldOper2" alignment="CENTER" promptText="Operador 2" />
@@ -110,6 +115,9 @@
                      </children>
                   </VBox>
                </children>
+               <effect>
+                  <Bloom threshold="0.8" />
+               </effect>
             </AnchorPane>
         </items>
       </SplitPane>

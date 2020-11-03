@@ -1,7 +1,5 @@
 package orihuel.vilaplana.angel.controls.formulari;
 
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -12,6 +10,19 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+/**
+ * Efectes incluits en el FXML:
+ *
+ *  - Button (Mostrar resum):
+ *      - Efecte utilitzat: ColorAdjust
+ *      - Motiu: Per a que el botó siga més blanc i no siga
+ *               tan oscur
+ *
+ *  - imageOperativeSystem:
+ *      - Efecte utilitzat: Reflection
+ *      - Motiu: Per a que la zona dreta no quede tant buit
+ *
+ */
 public class FormulariController {
 
     @FXML

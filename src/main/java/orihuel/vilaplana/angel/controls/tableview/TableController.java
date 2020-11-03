@@ -6,6 +6,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 
+/**
+ * Efectes incluits en el FXML:
+ *
+ *  - tableView:
+ *      - Efecte utilitzat: Blend (MULTIPLY)
+ *      - Motiu: Per a veure millor els elements de la tabla
+ *
+ */
 public class TableController {
 
     @FXML
