@@ -1,6 +1,7 @@
 package orihuel.vilaplana.angel;
 
 import javafx.fxml.FXML;
+import orihuel.vilaplana.angel.animacions.Animacio;
 import orihuel.vilaplana.angel.contenidors.ContenidorsApp;
 import orihuel.vilaplana.angel.controls.ControlsApp;
 import orihuel.vilaplana.angel.escacs.Escacs;
@@ -13,6 +14,11 @@ public class MainController {
 
     public void setMain(MainApp mainApp) {
         this.mainApp = mainApp;
+    }
+
+    @FXML
+    private void handleAnimacions() throws Exception {
+        mainApp.displayApplication(new Animacio());
     }
 
     @FXML

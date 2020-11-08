@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orihuel.vilaplana.angel.MainController">
    <children>
       <Label alignment="CENTER" layoutY="7.0" text="Ut2. Generació d'interficies d'escriptori" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
@@ -24,13 +23,14 @@
          <children>
             <HBox alignment="CENTER" prefHeight="142.0" prefWidth="560.0" snapToPixel="false" spacing="40.0">
                <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleAnimacions" prefHeight="80.0" prefWidth="130.0" text="Animacions" textAlignment="CENTER" wrapText="true" />
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleContenidors" prefHeight="80.0" prefWidth="130.0" text="Contenidors" />
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleControls" prefHeight="80.0" prefWidth="130.0" text="Controls" />
-                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEscacs" prefHeight="80.0" prefWidth="130.0" text="Escacs" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="142.0" prefWidth="560.0" spacing="40.0">
                <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEscacs" prefHeight="80.0" prefWidth="130.0" text="Escacs" />
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleListeners" prefHeight="80.0" prefWidth="130.0" text="Listeners" />
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#handlePiramide" prefHeight="80.0" prefWidth="130.0" text="Piramide de Cercles" textAlignment="CENTER" wrapText="true" />
                </children>
