@@ -35,13 +35,13 @@ public class RedCircle extends Circle {
                 double dx = Math.abs((redCircle.getCenterX() + redCircle.getRadius()) - (getCenterX() + getRadius()));
                 double dy = Math.abs((redCircle.getCenterY() + redCircle.getRadius()) - (getCenterY() + getRadius()));
 
-                if (dx >= getRadius()) {
+                if (dx > getRadius()) {
                     changeMoveDX();
                     redCircle.changeMoveDX();
                     redCircle.moveDX();
                 }
 
-                if (dy >= getRadius()) {
+                if (dy > getRadius()) {
                     changeMoveDY();
                     redCircle.changeMoveDY();
                     redCircle.moveDY();

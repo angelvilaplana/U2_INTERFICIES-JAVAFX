@@ -1,6 +1,8 @@
 package orihuel.vilaplana.angel.animacions.models;
 
+import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
+import javafx.animation.FillTransition;
 import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
@@ -85,7 +87,13 @@ public class BlueCircle extends Circle {
 
     public void addLive() {
         lives++;
-        setRadius(getRadius() + 5);
+        FillTransition fillTransition = new FillTransition(Duration.millis(500), this, Color.GREEN, Color.BLUE);
+        fillTransition.play();
+
+        if (lives < 9) {
+            setRadiusTransition(5);
+        }
+
         mainScene.restartCountDown();
         mainScene.addRedCircle();
     }
@@ -99,13 +107,39 @@ public class BlueCircle extends Circle {
             setCenterX(mainScene.getWidthScene() / 2);
             setCenterY(mainScene.getHeightScene() / 2);
             mainScene.addRedCircles();
-            setRadius(getRadius() - 5);
+            FillTransition fillTransition = new FillTransition(Duration.millis(500), this, Color.BLACK, Color.BLUE);
+            fillTransition.play();
+
+            if (lives < 9) {
+                setRadiusTransition(-5);
+            }
         } else {
             FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), this);
             fadeTransition.setFromValue(10);
             fadeTransition.setToValue(0);
             fadeTransition.play();
         }
+    }
+
+    private void setRadiusTransition(int radius) {
+        AnimationTimer animationRadius = new AnimationTimer() {
+            double actualRadius = 0;
+            final double speed = .5;
+
+            @Override
+            public void handle(long now) {
+                if (actualRadius > radius) {
+                    setRadius(getRadius() - speed);
+                    actualRadius -= speed;
+                } else if (actualRadius < radius) {
+                    setRadius(getRadius() + speed);
+                    actualRadius += speed;
+                } else {
+                    stop();
+                }
+            }
+        };
+        animationRadius.start();
     }
 
     public int getLives() {
