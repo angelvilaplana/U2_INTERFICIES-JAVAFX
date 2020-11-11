@@ -17,7 +17,7 @@ import javafx.util.Duration;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Animacio extends Application {
+public class MainScene extends Application {
 
     private Scene scene;
     private Group root;
@@ -30,6 +30,7 @@ public class Animacio extends Application {
     private int blueLives = 3;
     private Label labelBlueLives;
     private int secondsRemainingEatRedCircle = 10;
+    private long  lastTimerCall;
     private Label labelSecondsRemaining;
 
     private final int NUMBER_RED_CIRCLES = 3;
@@ -73,12 +74,6 @@ public class Animacio extends Application {
         stage.show();
     }
 
-    @Override
-    public void stop() throws Exception {
-        super.stop();
-        System.out.println("PEPE");
-    }
-
     private void setControlsPlayer() {
         scene.setOnKeyPressed(keyEvent ->
         {
@@ -108,9 +103,9 @@ public class Animacio extends Application {
     }
 
     private void setTimer() {
-        timer = new AnimationTimer() {
-            long  lastTimerCall = System.nanoTime();
+        lastTimerCall = System.nanoTime();
 
+        timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
                 moveBlueCircle();
@@ -195,6 +190,9 @@ public class Animacio extends Application {
                 blueCircle.setRadius(blueCircle.getRadius() + 5);
                 blueLives++;
                 labelBlueLives.setText("Vides: " + blueLives);
+                secondsRemainingEatRedCircle = 10;
+                labelSecondsRemaining.setText("Temps restant: " + secondsRemainingEatRedCircle);
+                lastTimerCall = System.nanoTime() - 200_000_000L;
                 addRedCircle();
                 return;
             }
@@ -259,6 +257,18 @@ public class Animacio extends Application {
         root.getChildren().add(redCircle);
         redCircles.add(redCircle);
         redCircle.toBack();
+    }
+
+    public Scene getScene() {
+        return scene;
+    }
+
+    public double getWidthScene() {
+        return WIDTH_SCENE;
+    }
+
+    public double getHeightScene() {
+        return HEIGHT_SCENE;
     }
 
     public static void main(String[] args) {
