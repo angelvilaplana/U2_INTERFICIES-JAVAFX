@@ -1,6 +1,7 @@
 package orihuel.vilaplana.angel.animacions;
 
 import javafx.animation.FadeTransition;
+import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -8,19 +9,20 @@ import javafx.util.Duration;
 
 public class BlueCircle extends Circle {
 
-    private MainScene mainScene;
+    private final MainScene mainScene;
 
-    private int blueLives;
+    private int lives;
 
     private boolean up, down, right, lest;
 
     public BlueCircle(MainScene mainScene) {
         super(mainScene.getWidthScene() / 2, mainScene.getHeightScene() / 2, 20, Color.BLUE);
-        blueLives = 3;
+        this.mainScene = mainScene;
+        this.lives = 3;
     }
 
-    private void setControls() {
-        mainScene.getScene().setOnKeyPressed(keyEvent ->
+    public void setControls(Scene scene) {
+        scene.setOnKeyPressed(keyEvent ->
         {
             if ((keyEvent.getCode() == KeyCode.UP) || (keyEvent.getCode() == KeyCode.W)) {
                 up = true;
@@ -33,7 +35,7 @@ public class BlueCircle extends Circle {
             }
         });
 
-        mainScene.getScene().setOnKeyReleased(keyEvent ->
+        scene.setOnKeyReleased(keyEvent ->
         {
             if ((keyEvent.getCode() == KeyCode.UP) || (keyEvent.getCode() == KeyCode.W)) {
                 up = false;
@@ -47,52 +49,55 @@ public class BlueCircle extends Circle {
         });
     }
 
-    private void move() {
+    public void move() {
         double speed = 2;
 
         if (up) {
             if (getCenterY() > (0 + getRadius())) {
                 setCenterY(getCenterY() - speed);
             } else {
-                collisionWall();
+                removeLive();
             }
         }
         if (down) {
             if (getCenterY() < (mainScene.getHeightScene() - getRadius())) {
                 setCenterY(getCenterY() + speed);
             } else {
-                collisionWall();
+                removeLive();
             }
         }
         if (right) {
             if (getCenterX() < (mainScene.getWidthScene() - getRadius())) {
                 setCenterX(getCenterX() + speed);
             } else {
-                collisionWall();
+                removeLive();
             }
         }
         if (lest) {
             if (getCenterX() > (0 + getRadius())) {
                 setCenterX(getCenterX() - speed);
             } else {
-                collisionWall();
+                removeLive();
             }
         }
     }
 
-    private void collisionWall() {
-        removeLive();
-
-        if (blueLives > 0) {
-            setCenterX(mainScene.getWidthScene() / 2);
-            setCenterY(mainScene.getHeightScene() / 2);
-        }
+    public void addLive() {
+        lives++;
+        setRadius(getRadius() + 5);
+        mainScene.restartCountDown();
+        mainScene.addRedCircle();
     }
 
-    private void removeLive() {
-        blueLives--;
+    public void removeLive() {
+        lives--;
+        mainScene.restartCountDown();
 
-        if (blueLives > 0) {
+        if (isLive()) {
+            mainScene.removeRedCircles();
+            setCenterX(mainScene.getWidthScene() / 2);
+            setCenterY(mainScene.getHeightScene() / 2);
+            mainScene.addRedCircles();
             setRadius(getRadius() - 5);
         } else {
             FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), this);
@@ -100,6 +105,14 @@ public class BlueCircle extends Circle {
             fadeTransition.setToValue(0);
             fadeTransition.play();
         }
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public boolean isLive() {
+        return lives > 0;
     }
 
 }

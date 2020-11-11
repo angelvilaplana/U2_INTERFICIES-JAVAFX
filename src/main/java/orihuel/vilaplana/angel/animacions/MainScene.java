@@ -1,70 +1,64 @@
 package orihuel.vilaplana.angel.animacions;
 
 import javafx.animation.AnimationTimer;
-import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainScene extends Application {
 
-    private Scene scene;
     private Group root;
     private AnimationTimer timer;
 
     private final double WIDTH_SCENE = 400;
     private final double HEIGHT_SCENE = 400;
 
-    private Circle blueCircle;
-    private int blueLives = 3;
+    private BlueCircle blueCircle;
+    private CountDown countDownEatRedCircles;
     private Label labelBlueLives;
-    private int secondsRemainingEatRedCircle = 10;
-    private long  lastTimerCall;
     private Label labelSecondsRemaining;
 
     private final int NUMBER_RED_CIRCLES = 3;
     private List<Circle> redCircles;
-
-    private boolean up, down, right, lest;
 
     @Override
     public void start(Stage stage) {
         stage.setTitle("Animacions");
         root = new Group();
 
-        blueCircle = new Circle(WIDTH_SCENE / 2, HEIGHT_SCENE / 2, 20, Color.BLUE);
+        blueCircle = new BlueCircle(this);
         root.getChildren().add(blueCircle);
 
         redCircles = new ArrayList<>();
         addRedCircles();
 
-        labelBlueLives = new Label("Vides: " + blueLives);
+        labelBlueLives = new Label("Vides: " + blueCircle.getLives());
         labelBlueLives.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
         labelBlueLives.toFront();
         labelBlueLives.setLayoutX(10);
         labelBlueLives.setLayoutY(10);
         root.getChildren().add(labelBlueLives);
 
-        labelSecondsRemaining = new Label("Temps restant: " + secondsRemainingEatRedCircle);
+        countDownEatRedCircles = new CountDown(5);
+        countDownEatRedCircles.start();
+        labelSecondsRemaining = new Label("Temps restant: " + countDownEatRedCircles.getSecond());
         labelSecondsRemaining.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
         labelSecondsRemaining.toFront();
         labelSecondsRemaining.setLayoutX(WIDTH_SCENE / 1.65);
         labelSecondsRemaining.setLayoutY(10);
         root.getChildren().add(labelSecondsRemaining);
 
-        scene = new Scene(root, WIDTH_SCENE, HEIGHT_SCENE);
-        setControlsPlayer();
+        Scene scene = new Scene(root, WIDTH_SCENE, HEIGHT_SCENE);
+        blueCircle.setControls(scene);
 
         setTimer();
         timer.start();
@@ -74,111 +68,35 @@ public class MainScene extends Application {
         stage.show();
     }
 
-    private void setControlsPlayer() {
-        scene.setOnKeyPressed(keyEvent ->
-        {
-            if ((keyEvent.getCode() == KeyCode.UP) || (keyEvent.getCode() == KeyCode.W)) {
-                up = true;
-            } else if ((keyEvent.getCode() == KeyCode.DOWN) || (keyEvent.getCode() == KeyCode.S)) {
-                down = true;
-            } else if ((keyEvent.getCode() == KeyCode.LEFT) || (keyEvent.getCode() == KeyCode.A)) {
-                lest = true;
-            } else if ((keyEvent.getCode() == KeyCode.RIGHT) || (keyEvent.getCode() == KeyCode.D)) {
-                right = true;
-            }
-        });
-
-        scene.setOnKeyReleased(keyEvent ->
-        {
-            if ((keyEvent.getCode() == KeyCode.UP) || (keyEvent.getCode() == KeyCode.W)) {
-                up = false;
-            } else if ((keyEvent.getCode() == KeyCode.DOWN) || (keyEvent.getCode() == KeyCode.S)) {
-                down = false;
-            } else if (((keyEvent.getCode() == KeyCode.LEFT) || (keyEvent.getCode() == KeyCode.A))) {
-                lest = false;
-            } else if (((keyEvent.getCode() == KeyCode.RIGHT) || (keyEvent.getCode() == KeyCode.D))) {
-                right = false;
-            }
-        });
-    }
-
     private void setTimer() {
-        lastTimerCall = System.nanoTime();
-
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
-                moveBlueCircle();
+                blueCircle.move();
                 eatReadCircles();
 
-                if (now > lastTimerCall + 1_000_000_000L) {
-                    secondsRemainingEatRedCircle--;
-                    if (secondsRemainingEatRedCircle == 0) {
-                        removeLive();
-                        secondsRemainingEatRedCircle = 10;
-                    }
-                    labelSecondsRemaining.setText("Temps restant: " + secondsRemainingEatRedCircle);
-                    lastTimerCall = now;
+                if (!blueCircle.isLive()) {
+                    countDownEatRedCircles.stop();
+                    timer.stop();
                 }
+
+                if (countDownEatRedCircles.isFinished()) {
+                    blueCircle.removeLive();
+                    countDownEatRedCircles.restart();
+                }
+
+                labelBlueLives.setText("Vides: " + blueCircle.getLives());
+                labelSecondsRemaining.setText("Temps restant: " + countDownEatRedCircles.getSecond());
             }
         };
     }
 
-    private void moveBlueCircle() {
-        double speed = 2;
+    public void removeRedCircles() {
+        for (Circle redCircle : redCircles) {
+            root.getChildren().remove(redCircle);
+        }
 
-        if (up) {
-            if (blueCircle.getCenterY() > (0 + blueCircle.getRadius())) {
-                blueCircle.setCenterY(blueCircle.getCenterY() - speed);
-            } else {
-                collisionWall();
-            }
-        }
-        if (down) {
-            if (blueCircle.getCenterY() < (HEIGHT_SCENE - blueCircle.getRadius())) {
-                blueCircle.setCenterY(blueCircle.getCenterY() + speed);
-            } else {
-                collisionWall();
-            }
-        }
-        if (right) {
-            if (blueCircle.getCenterX() < (WIDTH_SCENE - blueCircle.getRadius())) {
-                blueCircle.setCenterX(blueCircle.getCenterX() + speed);
-            } else {
-                collisionWall();
-            }
-        }
-        if (lest) {
-            if (blueCircle.getCenterX() > (0 + blueCircle.getRadius())) {
-                blueCircle.setCenterX(blueCircle.getCenterX() - speed);
-            } else {
-                collisionWall();
-            }
-        }
-    }
-
-    private void collisionWall() {
-        removeLive();
-
-        if (blueLives > 0) {
-            blueCircle.setCenterX(WIDTH_SCENE / 2);
-            blueCircle.setCenterY(HEIGHT_SCENE / 2);
-        }
-    }
-
-    private void removeLive() {
-        blueLives--;
-        labelBlueLives.setText("Vides: " + blueLives);
-
-        if (blueLives > 0) {
-            blueCircle.setRadius(blueCircle.getRadius() - 5);
-        } else {
-            timer.stop();
-            FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), blueCircle);
-            fadeTransition.setFromValue(10);
-            fadeTransition.setToValue(0);
-            fadeTransition.play();
-        }
+        redCircles = new ArrayList<>();
     }
 
     private void eatReadCircles() {
@@ -187,19 +105,13 @@ public class MainScene extends Application {
                                                    redCircle.getRadius() * .6, redCircle.getRadius() * .6)) {
                 root.getChildren().remove(redCircle);
                 redCircles.remove(redCircle);
-                blueCircle.setRadius(blueCircle.getRadius() + 5);
-                blueLives++;
-                labelBlueLives.setText("Vides: " + blueLives);
-                secondsRemainingEatRedCircle = 10;
-                labelSecondsRemaining.setText("Temps restant: " + secondsRemainingEatRedCircle);
-                lastTimerCall = System.nanoTime() - 200_000_000L;
-                addRedCircle();
+                blueCircle.addLive();
                 return;
             }
         }
     }
 
-    private void addRedCircles() {
+    public void addRedCircles() {
         while (NUMBER_RED_CIRCLES > redCircles.size()) {
             addRedCircle();
         }
@@ -234,7 +146,7 @@ public class MainScene extends Application {
         return false;
     }
 
-    private void addRedCircle() {
+    public void addRedCircle() {
         int radiusCircleRed = 10;
 
         double maxDX = WIDTH_SCENE - (radiusCircleRed * 4);
@@ -259,16 +171,16 @@ public class MainScene extends Application {
         redCircle.toBack();
     }
 
-    public Scene getScene() {
-        return scene;
-    }
-
     public double getWidthScene() {
         return WIDTH_SCENE;
     }
 
     public double getHeightScene() {
         return HEIGHT_SCENE;
+    }
+
+    public void restartCountDown() {
+        countDownEatRedCircles.restart();
     }
 
     public static void main(String[] args) {
