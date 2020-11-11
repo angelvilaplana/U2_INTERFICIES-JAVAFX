@@ -1,4 +1,4 @@
-package orihuel.vilaplana.angel.animacions;
+package orihuel.vilaplana.angel.animacions.models;
 
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;

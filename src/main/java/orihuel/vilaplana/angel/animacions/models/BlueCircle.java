@@ -1,4 +1,4 @@
-package orihuel.vilaplana.angel.animacions;
+package orihuel.vilaplana.angel.animacions.models;
 
 import javafx.animation.FadeTransition;
 import javafx.scene.Scene;
@@ -6,6 +6,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.util.Duration;
+import orihuel.vilaplana.angel.animacions.MainScene;
 
 public class BlueCircle extends Circle {
 

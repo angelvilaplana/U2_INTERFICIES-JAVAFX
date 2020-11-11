@@ -5,11 +5,12 @@ import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import orihuel.vilaplana.angel.animacions.models.BlueCircle;
+import orihuel.vilaplana.angel.animacions.models.CountDown;
+import orihuel.vilaplana.angel.animacions.models.RedCircle;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +29,7 @@ public class MainScene extends Application {
     private Label labelSecondsRemaining;
 
     private final int NUMBER_RED_CIRCLES = 3;
-    private List<Circle> redCircles;
+    private List<RedCircle> redCircles;
 
     @Override
     public void start(Stage stage) {
@@ -48,7 +49,7 @@ public class MainScene extends Application {
         labelBlueLives.setLayoutY(10);
         root.getChildren().add(labelBlueLives);
 
-        countDownEatRedCircles = new CountDown(5);
+        countDownEatRedCircles = new CountDown(10);
         countDownEatRedCircles.start();
         labelSecondsRemaining = new Label("Temps restant: " + countDownEatRedCircles.getSecond());
         labelSecondsRemaining.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
@@ -74,6 +75,7 @@ public class MainScene extends Application {
             public void handle(long now) {
                 blueCircle.move();
                 eatReadCircles();
+                moveRedCircles();
 
                 if (!blueCircle.isLive()) {
                     countDownEatRedCircles.stop();
@@ -91,8 +93,14 @@ public class MainScene extends Application {
         };
     }
 
+    private void moveRedCircles() {
+        for (RedCircle redCircle : redCircles) {
+            redCircle.move();
+        }
+    }
+
     public void removeRedCircles() {
-        for (Circle redCircle : redCircles) {
+        for (RedCircle redCircle : redCircles) {
             root.getChildren().remove(redCircle);
         }
 
@@ -100,7 +108,7 @@ public class MainScene extends Application {
     }
 
     private void eatReadCircles() {
-        for (Circle redCircle : redCircles) {
+        for (RedCircle redCircle : redCircles) {
             if (blueCircle.getBoundsInLocal().contains(redCircle.getCenterX(), redCircle.getCenterY(),
                                                    redCircle.getRadius() * .6, redCircle.getRadius() * .6)) {
                 root.getChildren().remove(redCircle);
@@ -117,55 +125,8 @@ public class MainScene extends Application {
         }
     }
 
-    private boolean checkIsNearCircle(Circle circleOrigin, Circle circleAux) {
-        boolean isDXNear, isDYNear;
-        double spacing = 2;
-
-        if (circleOrigin.getCenterX() > circleAux.getCenterX()) {
-            isDXNear = Math.abs(circleOrigin.getCenterX() - circleOrigin.getRadius() - circleAux.getCenterX()) < (circleOrigin.getRadius() * spacing);
-        } else {
-            isDXNear = Math.abs(circleOrigin.getCenterX() + circleOrigin.getRadius() - circleAux.getCenterX()) < (circleOrigin.getRadius() * spacing);
-        }
-
-        if (circleOrigin.getCenterY() > circleAux.getCenterY()) {
-            isDYNear = Math.abs(circleOrigin.getCenterY() - circleOrigin.getRadius() - circleAux.getCenterY()) < (circleOrigin.getRadius() * spacing);
-        } else {
-            isDYNear = Math.abs(circleOrigin.getCenterY() + circleOrigin.getRadius() - circleAux.getCenterY()) < (circleOrigin.getRadius() * spacing);
-        }
-
-        return isDXNear && isDYNear;
-    }
-
-    private boolean checkIsNearRedCircles(Circle circleAux) {
-        for (Circle redCircle : redCircles) {
-            if (checkIsNearCircle(redCircle, circleAux)) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
     public void addRedCircle() {
-        int radiusCircleRed = 10;
-
-        double maxDX = WIDTH_SCENE - (radiusCircleRed * 4);
-        double minDX = radiusCircleRed * 4;
-        double maxDY = HEIGHT_SCENE - (radiusCircleRed * 4);
-        double minDY = radiusCircleRed * 4;
-
-        int dx, dy;
-        boolean isNearCircles;
-        Circle redCircle;
-        do {
-            dx = (int) Math.floor(Math.random() * (maxDX - minDX + 1) + (minDX));
-            dy = (int) Math.floor(Math.random() * (maxDY - minDY + 1) + (minDY));
-            redCircle = new Circle(dx, dy, 10, Color.RED);
-            boolean isNearBlueCircle = checkIsNearCircle(blueCircle, redCircle);
-            boolean isNearRedCircles = checkIsNearRedCircles(redCircle);
-            isNearCircles = isNearBlueCircle || isNearRedCircles;
-        } while (isNearCircles);
-
+        RedCircle redCircle = new RedCircle(this);
         root.getChildren().add(redCircle);
         redCircles.add(redCircle);
         redCircle.toBack();
@@ -177,6 +138,14 @@ public class MainScene extends Application {
 
     public double getHeightScene() {
         return HEIGHT_SCENE;
+    }
+
+    public BlueCircle getBlueCircle() {
+        return blueCircle;
+    }
+
+    public List<RedCircle> getRedCircles() {
+        return redCircles;
     }
 
     public void restartCountDown() {
