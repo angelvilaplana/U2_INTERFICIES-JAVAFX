@@ -110,7 +110,7 @@ public class BlueCircle extends Circle {
             FillTransition fillTransition = new FillTransition(Duration.millis(500), this, Color.BLACK, Color.BLUE);
             fillTransition.play();
 
-            if (lives < 9) {
+            if (lives < 8) {
                 setRadiusTransition(-5);
             }
         } else {
