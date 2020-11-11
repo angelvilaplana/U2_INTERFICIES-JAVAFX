@@ -5,9 +5,12 @@ import javafx.animation.FadeTransition;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -18,13 +21,16 @@ public class Animacio extends Application {
 
     private Scene scene;
     private Group root;
+    private AnimationTimer timer;
 
     private final double WIDTH_SCENE = 400;
     private final double HEIGHT_SCENE = 400;
 
     private Circle blueCircle;
-    private int livesBlue = 3;
-    private AnimationTimer movePlayer;
+    private int blueLives = 3;
+    private Label labelBlueLives;
+    private int secondsRemainingEatRedCircle = 10;
+    private Label labelSecondsRemaining;
 
     private final int NUMBER_RED_CIRCLES = 3;
     private List<Circle> redCircles;
@@ -42,15 +48,35 @@ public class Animacio extends Application {
         redCircles = new ArrayList<>();
         addRedCircles();
 
+        labelBlueLives = new Label("Vides: " + blueLives);
+        labelBlueLives.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
+        labelBlueLives.toFront();
+        labelBlueLives.setLayoutX(10);
+        labelBlueLives.setLayoutY(10);
+        root.getChildren().add(labelBlueLives);
+
+        labelSecondsRemaining = new Label("Temps restant: " + secondsRemainingEatRedCircle);
+        labelSecondsRemaining.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
+        labelSecondsRemaining.toFront();
+        labelSecondsRemaining.setLayoutX(WIDTH_SCENE / 1.65);
+        labelSecondsRemaining.setLayoutY(10);
+        root.getChildren().add(labelSecondsRemaining);
+
         scene = new Scene(root, WIDTH_SCENE, HEIGHT_SCENE);
         setControlsPlayer();
 
-        setMovePlayer();
-        movePlayer.start();
+        setTimer();
+        timer.start();
 
         stage.setScene(scene);
         stage.setResizable(false);
         stage.show();
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+        System.out.println("PEPE");
     }
 
     private void setControlsPlayer() {
@@ -81,56 +107,97 @@ public class Animacio extends Application {
         });
     }
 
-    private void setMovePlayer() {
-        movePlayer = new AnimationTimer() {
+    private void setTimer() {
+        timer = new AnimationTimer() {
+            long  lastTimerCall = System.nanoTime();
+
             @Override
             public void handle(long now) {
-                double speed = 2;
-                if (up) {
-                    if (blueCircle.getCenterY() > (0 + blueCircle.getRadius())) {
-                        blueCircle.setCenterY(blueCircle.getCenterY() - speed);
-                    } else {
-                        collisionWall();
+                moveBlueCircle();
+                eatReadCircles();
+
+                if (now > lastTimerCall + 1_000_000_000L) {
+                    secondsRemainingEatRedCircle--;
+                    if (secondsRemainingEatRedCircle == 0) {
+                        removeLive();
+                        secondsRemainingEatRedCircle = 10;
                     }
-                }
-                if (down) {
-                    if (blueCircle.getCenterY() < (HEIGHT_SCENE - blueCircle.getRadius())) {
-                        blueCircle.setCenterY(blueCircle.getCenterY() + speed);
-                    } else {
-                        collisionWall();
-                    }
-                }
-                if (right) {
-                    if (blueCircle.getCenterX() < (WIDTH_SCENE - blueCircle.getRadius())) {
-                        blueCircle.setCenterX(blueCircle.getCenterX() + speed);
-                    } else {
-                        collisionWall();
-                    }
-                }
-                if (lest) {
-                    if (blueCircle.getCenterX() > (0 + blueCircle.getRadius())) {
-                        blueCircle.setCenterX(blueCircle.getCenterX() - speed);
-                    } else {
-                        collisionWall();
-                    }
+                    labelSecondsRemaining.setText("Temps restant: " + secondsRemainingEatRedCircle);
+                    lastTimerCall = now;
                 }
             }
         };
     }
 
-    private void collisionWall() {
-        livesBlue--;
+    private void moveBlueCircle() {
+        double speed = 2;
 
-        if (livesBlue > 0) {
+        if (up) {
+            if (blueCircle.getCenterY() > (0 + blueCircle.getRadius())) {
+                blueCircle.setCenterY(blueCircle.getCenterY() - speed);
+            } else {
+                collisionWall();
+            }
+        }
+        if (down) {
+            if (blueCircle.getCenterY() < (HEIGHT_SCENE - blueCircle.getRadius())) {
+                blueCircle.setCenterY(blueCircle.getCenterY() + speed);
+            } else {
+                collisionWall();
+            }
+        }
+        if (right) {
+            if (blueCircle.getCenterX() < (WIDTH_SCENE - blueCircle.getRadius())) {
+                blueCircle.setCenterX(blueCircle.getCenterX() + speed);
+            } else {
+                collisionWall();
+            }
+        }
+        if (lest) {
+            if (blueCircle.getCenterX() > (0 + blueCircle.getRadius())) {
+                blueCircle.setCenterX(blueCircle.getCenterX() - speed);
+            } else {
+                collisionWall();
+            }
+        }
+    }
+
+    private void collisionWall() {
+        removeLive();
+
+        if (blueLives > 0) {
             blueCircle.setCenterX(WIDTH_SCENE / 2);
             blueCircle.setCenterY(HEIGHT_SCENE / 2);
+        }
+    }
+
+    private void removeLive() {
+        blueLives--;
+        labelBlueLives.setText("Vides: " + blueLives);
+
+        if (blueLives > 0) {
             blueCircle.setRadius(blueCircle.getRadius() - 5);
         } else {
-            movePlayer.stop();
+            timer.stop();
             FadeTransition fadeTransition = new FadeTransition(Duration.millis(500), blueCircle);
             fadeTransition.setFromValue(10);
             fadeTransition.setToValue(0);
             fadeTransition.play();
+        }
+    }
+
+    private void eatReadCircles() {
+        for (Circle redCircle : redCircles) {
+            if (blueCircle.getBoundsInLocal().contains(redCircle.getCenterX(), redCircle.getCenterY(),
+                                                   redCircle.getRadius() * .6, redCircle.getRadius() * .6)) {
+                root.getChildren().remove(redCircle);
+                redCircles.remove(redCircle);
+                blueCircle.setRadius(blueCircle.getRadius() + 5);
+                blueLives++;
+                labelBlueLives.setText("Vides: " + blueLives);
+                addRedCircle();
+                return;
+            }
         }
     }
 
