@@ -13,6 +13,12 @@ public class CountDown {
 
     private final Timeline countDown;
 
+    /**
+     * Un compte enrere en segons que va restant els segons inicials
+     * fins que arriba a 0
+     *
+     * @param initSecond Els segons on comença
+     */
     public CountDown(int initSecond) {
         this.initSecond = initSecond;
         this.second = initSecond;
@@ -25,24 +31,39 @@ public class CountDown {
         countDown.setCycleCount(Animation.INDEFINITE);
     }
 
+    /**
+     * Comença el compte enrere
+     */
     public void start() {
         countDown.play();
     }
 
+    /**
+     * Para el compte enrere
+     */
     public void stop() {
         countDown.stop();
     }
 
+    /**
+     * Renicia el compte enrere
+     */
     public void restart() {
         countDown.stop();
         second = initSecond;
         countDown.play();
     }
 
+    /**
+     * Obté els segons actual
+     */
     public int getSecond() {
         return second;
     }
 
+    /**
+     * Si el compte enrere ha finalizat
+     */
     public boolean isFinished() {
         return  second == 0;
     }

@@ -1,17 +1,12 @@
 package orihuel.vilaplana.angel.animacions;
 
-import javafx.animation.AnimationTimer;
-import javafx.animation.FadeTransition;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
+import javafx.animation.*;
 import javafx.application.Application;
-import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -24,6 +19,9 @@ import orihuel.vilaplana.angel.animacions.models.RedCircle;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Escena principal
+ */
 public class MainScene extends Application {
 
     private Stage primaryStage;
@@ -49,14 +47,17 @@ public class MainScene extends Application {
         root = new Group();
         scene = new Scene(root, WIDTH_SCENE, HEIGHT_SCENE);
 
+        // Començar per el menú principal
         startMenu();
-        //startGame();
 
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();
     }
 
+    /**
+     * Menú principal
+     */
     private void startMenu() {
         VBox box = new VBox(20);
         box.setPrefHeight(HEIGHT_SCENE);
@@ -79,6 +80,10 @@ public class MainScene extends Application {
         root.getChildren().add(box);
     }
 
+    /**
+     * Menú quan la bola blava es queda sense
+     * vides
+     */
     private void endMenu() {
         VBox box = new VBox(20);
         box.setPrefHeight(HEIGHT_SCENE);
@@ -87,6 +92,12 @@ public class MainScene extends Application {
         Label title = new Label("GAME OVER");
         title.setFont(Font.font("Verdana", FontWeight.BOLD, 24));
         box.getChildren().add(title);
+
+        // Transició del Label "GAME OVER" baixant
+        TranslateTransition translateTransition = new TranslateTransition(Duration.seconds(1), title);
+        translateTransition.setFromY(-50);
+        translateTransition.setToY(0);
+        translateTransition.play();
 
         Button btnPlay = new Button("Tornar a jugar");
         btnPlay.setPrefWidth(150);
@@ -101,13 +112,19 @@ public class MainScene extends Application {
         root.getChildren().add(box);
     }
 
+    /**
+     * Joc i el exercici principal
+     */
     private void startGame() {
+        // Creem la bola blava
         blueCircle = new BlueCircle(this);
         root.getChildren().add(blueCircle);
 
+        // Creem les boles rojes
         redCircles = new ArrayList<>();
         addRedCircles();
 
+        // Label de les vides
         labelBlueLives = new Label("Vides: " + blueCircle.getLives());
         labelBlueLives.setFont(Font.font("Verdana", FontWeight.BOLD, 14));
         labelBlueLives.toFront();
@@ -115,6 +132,7 @@ public class MainScene extends Application {
         labelBlueLives.setLayoutY(10);
         root.getChildren().add(labelBlueLives);
 
+        // Compte enrere per al temps que te la bola blava en menjar a una roja
         countDownEatRedCircles = new CountDown(10);
         countDownEatRedCircles.start();
         labelSecondsRemaining = new Label("Temps restant: " + countDownEatRedCircles.getSecond());
@@ -124,37 +142,57 @@ public class MainScene extends Application {
         labelSecondsRemaining.setLayoutY(10);
         root.getChildren().add(labelSecondsRemaining);
 
-        blueCircle.setControls(scene);
+        // Controls del teclat de la bola blava
+        blueCircle.setControls();
 
+        // Temporizador principal del joc
         setTimer();
         timer.start();
     }
 
+    /**
+     * Asignar temporizador al joc
+     */
     private void setTimer() {
         timer = new AnimationTimer() {
             @Override
             public void handle(long now) {
+                // Moviment de la bola blava
                 blueCircle.move();
+                // Menjar els cercles rojos
                 eatReadCircles();
+                // Moviment de les boles rojes
                 moveRedCircles();
 
+                // Si no esta viu para els timers i
+                // acaba el joc
                 if (!blueCircle.isLive()) {
                     countDownEatRedCircles.stop();
                     timer.stop();
                     endAnimation();
                 }
 
+                // Si el compte enrerere es igual a 0
+                // Li baixa una vida i renicia el compte enrere
                 if (countDownEatRedCircles.isFinished()) {
                     blueCircle.removeLive();
                     countDownEatRedCircles.restart();
                 }
 
+                // Actualizar labels
                 labelBlueLives.setText("Vides: " + blueCircle.getLives());
                 labelSecondsRemaining.setText("Temps restant: " + countDownEatRedCircles.getSecond());
             }
         };
     }
 
+    /**
+     * Animació principal del joc
+     *
+     * Desapareix el que hi havia i
+     * neteja el Group fent una animacio de aparicio i
+     * iniciant el joc
+     */
     private void startAnimation() {
         FadeTransition fadeDisappear = new FadeTransition(Duration.millis(500), root);
         fadeDisappear.setFromValue(10);
@@ -170,6 +208,13 @@ public class MainScene extends Application {
         });
     }
 
+    /**
+     * Animació final del joc
+     *
+     * Desapareix el que hi havia i
+     * neteja el Group fent una animacio de aparicio i
+     * va al menú de Game Over
+     */
     private void endAnimation() {
         Timeline timelineEndMenu = new Timeline(new KeyFrame(Duration.seconds(1), e -> {
             FadeTransition fadeDisappear = new FadeTransition(Duration.millis(500), root);
@@ -188,12 +233,18 @@ public class MainScene extends Application {
         timelineEndMenu.play();
     }
 
+    /**
+     * Moviment de les boles rojes
+     */
     private void moveRedCircles() {
         for (RedCircle redCircle : redCircles) {
             redCircle.move();
         }
     }
 
+    /**
+     * Eliminar boles rojes
+     */
     public void removeRedCircles() {
         for (RedCircle redCircle : redCircles) {
             root.getChildren().remove(redCircle);
@@ -202,6 +253,11 @@ public class MainScene extends Application {
         redCircles = new ArrayList<>();
     }
 
+    /**
+     * Menjar boles rojes si
+     * la bola blova esta dins del rang.
+     * Fent que li puje una vida
+     */
     private void eatReadCircles() {
         for (RedCircle redCircle : redCircles) {
             if (blueCircle.getBoundsInLocal().contains(redCircle.getCenterX(), redCircle.getCenterY(),
@@ -214,12 +270,20 @@ public class MainScene extends Application {
         }
     }
 
+    /**
+     * Afegir boles rojes si la llista
+     * està incompleta
+     */
     public void addRedCircles() {
         while (NUMBER_RED_CIRCLES > redCircles.size()) {
             addRedCircle();
         }
     }
 
+    /**
+     * Afegir una bola roja i
+     * posarla de fons
+     */
     public void addRedCircle() {
         RedCircle redCircle = new RedCircle(this);
         root.getChildren().add(redCircle);
@@ -227,22 +291,41 @@ public class MainScene extends Application {
         redCircle.toBack();
     }
 
+    public Scene getScene() {
+        return scene;
+    }
+
+    /**
+     * Obtindre l'amplaria de la finestra
+     */
     public double getWidthScene() {
         return WIDTH_SCENE;
     }
 
+    /**
+     * Obtindre l'altura de la finestra
+     */
     public double getHeightScene() {
         return HEIGHT_SCENE;
     }
 
+    /**
+     * Obtindre el cercle blau
+     */
     public BlueCircle getBlueCircle() {
         return blueCircle;
     }
 
+    /**
+     * Obtindre els cercles rojos
+     */
     public List<RedCircle> getRedCircles() {
         return redCircles;
     }
 
+    /**
+     * Reniciar el compte enrere
+     */
     public void restartCountDown() {
         countDownEatRedCircles.restart();
     }
