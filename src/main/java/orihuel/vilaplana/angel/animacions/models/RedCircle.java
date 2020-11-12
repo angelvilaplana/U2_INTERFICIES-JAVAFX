@@ -6,7 +6,7 @@ import orihuel.vilaplana.angel.animacions.MainScene;
 
 import java.util.Random;
 
-public class RedCircle extends Circle {
+public class RedCircle extends CircleExtension {
 
     private final MainScene mainScene;
 
@@ -171,11 +171,12 @@ public class RedCircle extends Circle {
         do {
             dx = (int) Math.floor(Math.random() * (maxDX - minDX + 1) + (minDX));
             dy = (int) Math.floor(Math.random() * (maxDY - minDY + 1) + (minDY));
-            setCircle(dx, dy);
             boolean isNearBlueCircle = checkIsNearCircle(mainScene.getBlueCircle());
             boolean isNearRedCircles = checkIsNearRedCircles();
             isNearCircles = isNearBlueCircle || isNearRedCircles;
         } while (isNearCircles);
+
+        setCircle(dx, dy);
     }
 
     /**
@@ -186,7 +187,8 @@ public class RedCircle extends Circle {
     private void setCircle(double dx, double dy) {
         setCenterX(dx);
         setCenterY(dy);
-        setRadius(10);
+        setRadius(0);
+        setRadiusTransition(10);
         setFill(Color.RED);
     }
 

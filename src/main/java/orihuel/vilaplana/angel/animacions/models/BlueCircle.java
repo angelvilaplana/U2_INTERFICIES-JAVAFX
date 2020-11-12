@@ -1,16 +1,13 @@
 package orihuel.vilaplana.angel.animacions.models;
 
-import javafx.animation.AnimationTimer;
 import javafx.animation.FadeTransition;
 import javafx.animation.FillTransition;
-import javafx.scene.Scene;
 import javafx.scene.input.KeyCode;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Circle;
 import javafx.util.Duration;
 import orihuel.vilaplana.angel.animacions.MainScene;
 
-public class BlueCircle extends Circle {
+public class BlueCircle extends CircleExtension {
 
     private final MainScene mainScene;
 
@@ -24,10 +21,12 @@ public class BlueCircle extends Circle {
      * @param mainScene Escena principal
      */
     public BlueCircle(MainScene mainScene) {
-        super(mainScene.getWidthScene() / 2, mainScene.getHeightScene() / 2, 20, Color.BLUE);
+        super(mainScene.getWidthScene() / 2, mainScene.getHeightScene() / 2, 0, Color.BLUE);
         this.mainScene = mainScene;
         // Vides de la bola blava
         this.lives = 3;
+        // Animació radi del cercle
+        setRadiusTransition(20);
     }
 
     /**
@@ -174,37 +173,6 @@ public class BlueCircle extends Circle {
             fadeTransition.setToValue(0);
             fadeTransition.play();
         }
-    }
-
-    /**
-     * Transició quan es canvia el radi del cercle blau
-     *
-     * @param radius el radi que volem que modifique
-     */
-    private void setRadiusTransition(int radius) {
-        AnimationTimer animationRadius = new AnimationTimer() {
-            double actualRadius = 0;
-            final double speed = .5;
-
-            @Override
-            public void handle(long now) {
-                // Si el radi actual es major al radi asignat
-                // Li baixarem a la velocitat asignada.
-                // Si no, serà el contrari
-                // Quan siguen iguals aquesta animació
-                // es parara
-                if (actualRadius > radius) {
-                    setRadius(getRadius() - speed);
-                    actualRadius -= speed;
-                } else if (actualRadius < radius) {
-                    setRadius(getRadius() + speed);
-                    actualRadius += speed;
-                } else {
-                    stop();
-                }
-            }
-        };
-        animationRadius.start();
     }
 
     /**
