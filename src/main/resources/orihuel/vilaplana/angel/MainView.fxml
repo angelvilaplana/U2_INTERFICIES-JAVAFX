@@ -30,6 +30,7 @@
             </HBox>
             <HBox alignment="CENTER" prefHeight="142.0" prefWidth="560.0" spacing="40.0">
                <children>
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleDragAndDrop" prefHeight="80.0" prefWidth="130.0" text="Drag &amp; Drop" />
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleEscacs" prefHeight="80.0" prefWidth="130.0" text="Escacs" />
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleListeners" prefHeight="80.0" prefWidth="130.0" text="Listeners" />
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#handlePiramide" prefHeight="80.0" prefWidth="130.0" text="Piramide de Cercles" textAlignment="CENTER" wrapText="true" />
