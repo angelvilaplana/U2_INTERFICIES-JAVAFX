@@ -2,10 +2,13 @@ package orihuel.vilaplana.angel.drag_and_drop;
 
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
+import javafx.scene.layout.GridPane;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,12 +66,18 @@ public class DragAndDropController {
 
     private List<Card> cards;
 
+    private int movements;
+
+    private int cardsCorrects;
+
     @FXML
     private void initialize() {
         initializeCards();
         initializeImagesDrag();
         initializeLabels();
         initializeImagesDrop();
+        movements = 0;
+        cardsCorrects = 0;
     }
 
     private void initializeCards() {
@@ -83,57 +92,66 @@ public class DragAndDropController {
         Random random = new Random();
         List<Card> randomImages = new ArrayList<>(cards);
         Card randomImage;
-        Card card;
 
         randomImage = randomImages.get(random.nextInt(randomImages.size()));
-        setImageDrag(imageDrag1, randomImage.getPathImage(), randomImage.getName());
-        card = getCard(randomImage.getPathImage());
-        if (card != null) {
-            card.setInitialColumn(1);
-        }
+        setImageDrag(imageDrag1, randomImage.getPathImage());
+        getCard(randomImage.getPathImage()).setPosition(1,1);
         randomImages.remove(randomImage);
 
         randomImage = randomImages.get(random.nextInt(randomImages.size()));
-        setImageDrag(imageDrag2, randomImage.getPathImage(), randomImage.getName());
-        card = getCard(randomImage.getPathImage());
-        if (card != null) {
-            card.setInitialColumn(2);
-        }
+        setImageDrag(imageDrag2, randomImage.getPathImage());
+        getCard(randomImage.getPathImage()).setPosition(1,2);
         randomImages.remove(randomImage);
 
         randomImage = randomImages.get(random.nextInt(randomImages.size()));
-        setImageDrag(imageDrag3, randomImage.getPathImage(), randomImage.getName());
-        card = getCard(randomImage.getPathImage());
-        if (card != null) {
-            card.setInitialColumn(3);
-        }
+        setImageDrag(imageDrag3, randomImage.getPathImage());
+        getCard(randomImage.getPathImage()).setPosition(1,3);
         randomImages.remove(randomImage);
 
         randomImage = randomImages.get(0);
-        setImageDrag(imageDrag4, randomImage.getPathImage(), randomImage.getName());
-        card = getCard(randomImage.getPathImage());
-        if (card != null) {
-            card.setInitialColumn(4);
-        }
+        setImageDrag(imageDrag4, randomImage.getPathImage());
+        getCard(randomImage.getPathImage()).setPosition(1,4);
     }
 
-    private void setImageDrag(ImageView imageDrag, String pathImage, String nameCard) {
+    private void setImageDrag(ImageView imageDrag, String pathImage) {
         imageDrag.setImage(new Image(pathImage));
+
         imageDrag.setOnMouseEntered(e -> {
             if (imageDrag.getImage() != null && imageDrag.getImage().getUrl() != null) {
                 imageDrag.setCursor(Cursor.HAND);
             }
         });
+
         imageDrag.setOnDragDetected(e -> {
             if (imageDrag.getImage() != null && imageDrag.getImage().getUrl() != null) {
                 imageDrag.setCursor(Cursor.CLOSED_HAND);
-                handleDragImage(imageDrag, nameCard);
+                handleDragImage(imageDrag);
             }
         });
+
         imageDrag.setOnDragDone(e -> {
             if (e.isAccepted()) {
-                imageDrag.setImage(null);
+                Dragboard dragboard = e.getDragboard();
+
+                if (dragboard.getUrl() != null) {
+                    Card card = getCard(dragboard.getUrl());
+
+                    if (card.getGrid() == 2 && isCorrectCard(card)) {
+                        setImageCorrectDrag(imageDrag, card.getPathImage());
+                        setImageDown(card.getColumn(), DragAndDrop.class.getResource("images/correct.png").toString());
+                        cardsCorrects++;
+                        if (cardsCorrects == cards.size()) {
+                            endGame();
+                        }
+                    } else {
+                        setImageDrag(imageDrag, card.getPathImage());
+                    }
+                } else {
+                    imageDrag.setImage(null);
+                }
+
                 imageDrag.setCursor(Cursor.DEFAULT);
+                movements++;
             }
         });
     }
@@ -175,13 +193,12 @@ public class DragAndDropController {
         handleDropImage(imageDrop4, 4);
     }
 
-    private void handleDragImage(ImageView imageDrag, String cardName) {
+    private void handleDragImage(ImageView imageDrag) {
         Dragboard dragboard = imageDrag.startDragAndDrop(TransferMode.MOVE);
         ClipboardContent content = new ClipboardContent();
         Image image = new Image(imageDrag.getImage().getUrl(), imageDrag.getFitWidth(), imageDrag.getFitHeight(), true, true);
         content.putImage(image);
         content.putUrl(image.getUrl());
-        content.putString(cardName);
         dragboard.setContent(content);
     }
 
@@ -196,17 +213,37 @@ public class DragAndDropController {
 
         imageDrop.setOnDragDropped(e -> {
             Dragboard dragboard = e.getDragboard();
-            if(dragboard.hasImage() && (imageDrop.getImage() == null || !imageDrop.getImage().getUrl().equals(dragboard.getUrl()))) {
+            Card newCard = getCard(dragboard.getUrl());
+
+            if (dragboard.hasImage() && (imageDrop.getImage() == null || !imageDrop.getImage().getUrl().equals(dragboard.getUrl()))) {
+                int[] positionDragBoard = {2, column};
+
+                ClipboardContent content = new ClipboardContent();
                 if (imageDrop.getImage() != null) {
-                    returnImageInitialPosition(imageDrop.getImage().getUrl());
+                    Card card = getCard(imageDrop.getImage().getUrl());
+                    positionDragBoard = card.getPosition();
+                    card.setPosition(newCard.getPosition());
+                    content.putUrl(card.getPathImage());
+                } else if (newCard.getGrid() == 2) {
+                    setImageDown(newCard.getColumn(), null);
                 }
 
-                String cardName = dragboard.getString();
-                if (isCorrectCard(cardName, column)) {
-                    setImageCorrectDrag(imageDrop, dragboard.getUrl());
+                dragboard.setContent(content);
+
+                newCard.setPosition(positionDragBoard);
+
+                if (isCorrectCard(newCard)) {
+                    setImageCorrectDrag(imageDrop, newCard.getPathImage());
+                    setImageDown(newCard.getColumn(), DragAndDrop.class.getResource("images/correct.png").toString());
+                    cardsCorrects++;
+                    if (cardsCorrects == cards.size()) {
+                        endGame();
+                    }
                 } else {
-                    setImageDrag(imageDrop, dragboard.getUrl(), dragboard.getString());
+                    setImageDrag(imageDrop, newCard.getPathImage());
+                    setImageDown(newCard.getColumn(), DragAndDrop.class.getResource("images/incorrect.png").toString());
                 }
+
                 e.setDropCompleted(true);
             } else {
                 e.setDropCompleted(false);
@@ -215,56 +252,50 @@ public class DragAndDropController {
         });
     }
 
-    private boolean isCorrectCard(String cardName, int column) {
-        if (column == 1) {
-            if (cardName.equals(labelCard1.getText())) {
-                imageDown1.setImage(new Image(DragAndDrop.class.getResource("images/correct.png").toString()));
-                return true;
-            } else {
-                imageDown1.setImage(new Image(DragAndDrop.class.getResource("images/incorrect.png").toString()));
-                return false;
-            }
-        } else if (column == 2) {
-            if (cardName.equals(labelCard2.getText())) {
-                imageDown2.setImage(new Image(DragAndDrop.class.getResource("images/correct.png").toString()));
-                return true;
-            } else {
-                imageDown2.setImage(new Image(DragAndDrop.class.getResource("images/incorrect.png").toString()));
-                return false;
-            }
-        } else if (column == 3) {
-            if (cardName.equals(labelCard3.getText())) {
-                imageDown3.setImage(new Image(DragAndDrop.class.getResource("images/correct.png").toString()));
-                return true;
-            } else {
-                imageDown3.setImage(new Image(DragAndDrop.class.getResource("images/incorrect.png").toString()));
-                return false;
-            }
-        } else if (column == 4) {
-            if (cardName.equals(labelCard4.getText())) {
-                imageDown4.setImage(new Image(DragAndDrop.class.getResource("images/correct.png").toString()));
-                return true;
-            } else {
-                imageDown4.setImage(new Image(DragAndDrop.class.getResource("images/incorrect.png").toString()));
-                return false;
-            }
-        } else {
-            return false;
-        }
+    private void endGame() {
+        ImageView image = new ImageView(DragAndDrop.class.getResource("images/correct.png").toString());
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setGraphic(image);
+        alert.showAndWait();
     }
 
-    private void returnImageInitialPosition(String url) {
-        Card card = getCard(url);
-        int column = card.getInitialColumn();
+    private boolean isCorrectCard(Card card) {
+        int column = card.getColumn();
+        String cardName = card.getName();
 
         if (column == 1) {
-            imageDrag1.setImage(new Image(url));
+            return cardName.equals(labelCard1.getText());
         } else if (column == 2) {
-            imageDrag2.setImage(new Image(url));
+            return cardName.equals(labelCard2.getText());
         } else if (column == 3) {
-            imageDrag3.setImage(new Image(url));
+            return cardName.equals(labelCard3.getText());
         } else if (column == 4) {
-            imageDrag4.setImage(new Image(url));
+            return cardName.equals(labelCard4.getText());
+        }
+        return false;
+    }
+
+    private void setImageDown(int column, String pathImage) {
+        if (pathImage == null) {
+            if (column == 1) {
+                imageDown1.setImage(null);
+            } else if (column == 2) {
+                imageDown2.setImage(null);
+            } else if (column == 3) {
+                imageDown3.setImage(null);
+            } else if (column == 4) {
+                imageDown4.setImage(null);
+            }
+        } else {
+            if (column == 1) {
+                imageDown1.setImage(new Image(pathImage));
+            } else if (column == 2) {
+                imageDown2.setImage(new Image(pathImage));
+            } else if (column == 3) {
+                imageDown3.setImage(new Image(pathImage));
+            } else if (column == 4) {
+                imageDown4.setImage(new Image(pathImage));
+            }
         }
     }
 

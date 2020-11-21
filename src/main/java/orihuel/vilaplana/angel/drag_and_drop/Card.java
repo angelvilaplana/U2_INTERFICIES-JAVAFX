@@ -8,11 +8,12 @@ public class Card {
 
     private URL pathImage;
 
-    private int initialColumn;
+    private int[] position;
 
     public Card(String name, URL pathImage) {
         this.name = name;
         this.pathImage = pathImage;
+        this.position = new int[2];
     }
 
     public String getName() {
@@ -23,12 +24,25 @@ public class Card {
         return String.valueOf(pathImage);
     }
 
-    public void setInitialColumn(int positionColumn) {
-        this.initialColumn = positionColumn;
+    public int[] getPosition() {
+        return position;
     }
 
-    public int getInitialColumn() {
-        return initialColumn;
+    public void setPosition(int[] position) {
+        this.position = position;
+    }
+
+    public void setPosition(int grid, int column) {
+        position[0] = grid;
+        position[1] = column;
+    }
+
+    public int getGrid() {
+        return position[0];
+    }
+
+    public int getColumn() {
+        return position[1];
     }
 
 }
