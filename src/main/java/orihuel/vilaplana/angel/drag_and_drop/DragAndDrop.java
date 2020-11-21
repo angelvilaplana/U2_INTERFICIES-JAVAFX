@@ -14,6 +14,8 @@ public class DragAndDrop extends Application {
         loader.setLocation(DragAndDrop.class.getResource("DragAndDropScene.fxml"));
         primaryStage.setTitle("Drag & Drop");
         Parent rootView = loader.load();
+        DragAndDropController controller = loader.getController();
+        controller.setMainStage(primaryStage);
         Scene scene = new Scene(rootView);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);

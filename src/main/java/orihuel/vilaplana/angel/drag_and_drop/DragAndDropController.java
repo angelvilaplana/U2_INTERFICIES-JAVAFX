@@ -1,17 +1,23 @@
 package orihuel.vilaplana.angel.drag_and_drop;
 
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
-import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.*;
-import javafx.scene.layout.GridPane;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.Pane;
+import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 
 public class DragAndDropController {
@@ -63,6 +69,8 @@ public class DragAndDropController {
 
     @FXML
     private ImageView imageDrop4;
+
+    private Stage mainStage;
 
     private List<Card> cards;
 
@@ -140,9 +148,6 @@ public class DragAndDropController {
                         setImageCorrectDrag(imageDrag, card.getPathImage());
                         setImageDown(card.getColumn(), DragAndDrop.class.getResource("images/correct.png").toString());
                         cardsCorrects++;
-                        if (cardsCorrects == cards.size()) {
-                            endGame();
-                        }
                     } else {
                         setImageDrag(imageDrag, card.getPathImage());
                     }
@@ -151,7 +156,11 @@ public class DragAndDropController {
                 }
 
                 imageDrag.setCursor(Cursor.DEFAULT);
+
                 movements++;
+                if (cardsCorrects == cards.size()) {
+                    endGame();
+                }
             }
         });
     }
@@ -236,9 +245,6 @@ public class DragAndDropController {
                     setImageCorrectDrag(imageDrop, newCard.getPathImage());
                     setImageDown(newCard.getColumn(), DragAndDrop.class.getResource("images/correct.png").toString());
                     cardsCorrects++;
-                    if (cardsCorrects == cards.size()) {
-                        endGame();
-                    }
                 } else {
                     setImageDrag(imageDrop, newCard.getPathImage());
                     setImageDown(newCard.getColumn(), DragAndDrop.class.getResource("images/incorrect.png").toString());
@@ -253,10 +259,38 @@ public class DragAndDropController {
     }
 
     private void endGame() {
-        ImageView image = new ImageView(DragAndDrop.class.getResource("images/correct.png").toString());
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setGraphic(image);
-        alert.showAndWait();
+        Image image = new Image((DragAndDrop.class.getResource("images/logo.png").toString()), 100, 100, true, true);
+        ImageView imageView = new ImageView(image);
+        Dialog<ButtonType> dialog = new Dialog<>();
+        dialog.setTitle("Joc finalitzat");
+        dialog.setGraphic(imageView);
+        ButtonType btnReturnMenu = new ButtonType("Tornar al menú");
+        ButtonType btnRestartGame = new ButtonType("Tornar a jugar");
+        AnchorPane pane = new AnchorPane();
+        Label label = new Label("Has necesitat " + movements + " moviments per a acabar");
+        AnchorPane.setTopAnchor(label, (double) 0);
+        AnchorPane.setBottomAnchor(label, (double) 0);
+        AnchorPane.setLeftAnchor(label, (double) 20);
+        AnchorPane.setRightAnchor(label, (double) 20);
+        label.setAlignment(Pos.CENTER);
+        label.setFont(Font.font("Arial", 16));
+        label.setPrefWidth(100);
+        label.setWrapText(true);
+        pane.getChildren().add(label);
+        dialog.getDialogPane().setContent(pane);
+        dialog.getDialogPane().getButtonTypes().addAll(btnReturnMenu, btnRestartGame);
+
+        Optional<ButtonType> result = dialog.showAndWait();
+        if (result.get() == btnReturnMenu) {
+            mainStage.close();
+        } else if (result.get() == btnRestartGame) {
+            DragAndDrop dragAndDrop = new DragAndDrop();
+            try {
+                dragAndDrop.start(mainStage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private boolean isCorrectCard(Card card) {
@@ -306,6 +340,10 @@ public class DragAndDropController {
             }
         }
         return null;
+    }
+
+    public void setMainStage(Stage mainStage) {
+        this.mainStage = mainStage;
     }
 
 }
