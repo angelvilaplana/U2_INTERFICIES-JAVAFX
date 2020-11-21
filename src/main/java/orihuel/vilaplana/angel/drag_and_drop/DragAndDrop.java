@@ -39,7 +39,7 @@ public class DragAndDrop extends Application {
     }
 
     /**
-     * Dialeg y música al acabr el joc
+     * Dialeg i música al acabr el joc
      */
     public void endGame(int movements) {
         // Indiquem la música i ho reproduim
