@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="817.0" prefWidth="429.0" stylesheets="@styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orihuel.vilaplana.angel.css.RegisterController">
+   <children>
+      <Label alignment="CENTER" layoutX="40.0" layoutY="23.0" prefHeight="37.0" prefWidth="349.0" styleClass="header" text="Formulari de Registre" AnchorPane.rightAnchor="40.0" AnchorPane.topAnchor="23.0" />
+      <VBox layoutX="40.0" layoutY="86.0" prefHeight="466.0" prefWidth="329.0" spacing="20.0" AnchorPane.leftAnchor="40.0" AnchorPane.rightAnchor="60.0">
+         <children>
+            <HBox prefHeight="27.0" spacing="20.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefHeight="27.0" prefWidth="100.0" text="Usuari" />
+                  <TextField maxWidth="229.0" minWidth="200.0" prefHeight="33.0" prefWidth="229.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="2.0" prefWidth="321.0" spacing="20.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefHeight="59.0" prefWidth="100.0" text="Contrasenya" />
+                  <PasswordField maxWidth="231.0" prefHeight="33.0" prefWidth="231.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="37.0" prefWidth="349.0" spacing="20.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="70.0" prefWidth="100.0" text="Repetir contrasenya" wrapText="true" />
+                  <PasswordField maxWidth="233.0" prefHeight="33.0" prefWidth="233.0">
+                     <HBox.margin>
+                        <Insets top="2.0" />
+                     </HBox.margin></PasswordField>
+               </children>
+            </HBox>
+            <HBox prefHeight="10.0" prefWidth="281.0" spacing="20.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="Nom" />
+                  <TextField maxWidth="232.0" minWidth="200.0" prefHeight="33.0" prefWidth="232.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="0.0" prefWidth="321.0" spacing="20.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" prefWidth="100.0" text="Cognom" />
+                  <TextField maxWidth="231.0" minWidth="200.0" prefHeight="33.0" prefWidth="231.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="35.0" prefWidth="329.0" spacing="20.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="46.0" prefWidth="96.0" text="Correu Electrònic" wrapText="true" />
+                  <TextField maxWidth="230.0" minWidth="200.0" prefHeight="33.0" prefWidth="230.0" />
+               </children>
+            </HBox>
+            <HBox prefHeight="32.0" prefWidth="349.0" spacing="20.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" nodeOrientation="RIGHT_TO_LEFT" prefHeight="40.0" prefWidth="100.0" text="Número de teléfon" wrapText="true" />
+                  <TextField fx:id="numberPhone" maxWidth="234.0" minWidth="200.0" prefHeight="33.0" prefWidth="234.0">
+                     <HBox.margin>
+                        <Insets top="3.0" />
+                     </HBox.margin></TextField>
+               </children>
+            </HBox>
+            <HBox prefHeight="13.0" prefWidth="389.0" spacing="20.0">
+               <children>
+                  <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="108.0" prefWidth="100.0" text="Donacions" wrapText="true" />
+                  <VBox prefHeight="52.0" prefWidth="100.0" spacing="10.0">
+                     <children>
+                        <RadioButton mnemonicParsing="false" text="Donar 5 €" />
+                        <RadioButton mnemonicParsing="false" text="Donar 20 €" />
+                        <RadioButton mnemonicParsing="false" text="Donar 10 €" />
+                     </children>
+                  </VBox>
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+      <VBox layoutX="162.0" layoutY="599.0" prefHeight="125.0" prefWidth="200.0" spacing="20.0" AnchorPane.leftAnchor="162.0">
+         <children>
+            <CheckBox mnemonicParsing="false" prefHeight="23.0" prefWidth="190.0" text="Acepte les condicions" />
+            <CheckBox mnemonicParsing="false" prefHeight="75.0" prefWidth="240.0" text="Permet l'enviament de correu electrònic amb publicitat de l'empresa" wrapText="true" />
+         </children>
+      </VBox>
+      <Button layoutX="69.0" layoutY="745.0" mnemonicParsing="false" onAction="#handleStyle" prefHeight="27.0" prefWidth="300.0" text="Modo nit" />
+   </children>
+</AnchorPane>

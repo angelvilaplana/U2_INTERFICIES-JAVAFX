@@ -1,0 +1,199 @@
+.root {
+    -fx-font-size: 11pt;
+    -fx-font-family: Arial;
+    -fx-background-color: #000000;
+}
+
+.label {
+    -fx-font-size: 11pt;
+    -fx-font-family: Arial;
+    -fx-text-fill: #ffffff;
+    -fx-opacity: .8;
+}
+
+.button {
+    -fx-padding: 5pt 10pt;
+    -fx-background-color: linear-gradient(#000000 40%, #454545 100%);
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-font-size: 11pt;
+    -fx-border-color: #ffffff;
+    -fx-border-radius: 2pt;
+    -fx-effect: dropshadow(gaussian , #ffffff, 1,0,0,5);
+}
+
+.button:hover{
+    -fx-background-color: linear-gradient(#000000 40%, #4a4a4a 60%);
+}
+
+.button:pressed {
+    -fx-effect: dropshadow(gaussian , #ffffff, 1,0,0,2);
+}
+
+.text-area .content,
+.text-field,
+.password-field {
+    -fx-border-color: #515151;
+    -fx-font-family: Arial;
+    -fx-font-size: 11pt;
+    -fx-text-fill: #ffffff;
+    -fx-border-radius: 4pt;
+    -fx-padding: 5pt;
+    -fx-background-color: #000000;
+}
+
+.text-area:focused .content,
+.text-field:focused,
+.password-field:focused {
+    -fx-border-color: #ffffff;
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #000000;
+}
+
+.check-box .box {
+    -fx-background-color: #000000;
+    -fx-border-color: #d6d6d6;
+    -fx-border-radius:3px;
+
+}
+
+.check-box:selected .mark {
+    -fx-background-color: #000000;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #e8e8e8;
+}
+
+.check-box {
+    -fx-text-fill: #ffffff;
+    -fx-label-padding: 0 0 0 15px;
+}
+
+.radio-button .radio {
+    -fx-border-width: 1px;
+    -fx-border-color: #f0f0f0;
+    -fx-background-color: #000000;
+    -fx-background-image: null;
+    -fx-border-radius: 15px;
+    -fx-padding: 4px;
+}
+
+.radio-button .radio:selected {
+    -fx-background-color: #000000;
+    -fx-background-image: null;
+}
+
+.radio-button -radio:armed {
+    -fx-background-color: #000000;
+    -fx-background-image: null;
+}
+
+.radio-button -radio:determinate {
+    -fx-background-color: #000000;
+    -fx-background-image: null;
+}
+
+.radio-button -radio:indeterminate {
+    -fx-background-color: #000000;
+    -fx-background-image: null;
+}
+
+.radio-button .dot {
+    -fx-background-radius: 15px;
+    -fx-padding: 4px;
+}
+
+.radio-button {
+    -fx-text-fill: #ffffff;
+}
+
+.tooltip {
+    -fx-text-fill: #ffffff;
+    -fx-background-color: #000000;
+}
+
+.choice-box {
+    -fx-background-color: #505050;
+}
+
+.choice-box .context-menu {
+    -fx-background-color: #000000;
+}
+
+.choice-box .menu-item:focused {
+    -fx-background-color: #000000;
+}
+
+.spinner .increment-arrow-button,
+.spinner .decrement-arrow-button {
+    -fx-background-color: #000000;
+    -fx-border-color: #e8e8e8;
+}
+
+.spinner .increment-arrow-button .increment-arrow,
+.spinner .decrement-arrow-button .decrement-arrow{
+    -fx-background-color: #ffffff;
+}
+
+.spinner .increment-arrow-button:hover,
+.spinner .decrement-arrow-button:hover {
+    -fx-background-color: #f7f7f7;
+}
+
+.spinner .increment-arrow-button:hover:pressed,
+.spinner .decrement-arrow-button:hover:pressed,
+.spinner .increment-arrow-button:pressed,
+.spinner .decrement-arrow-button:pressed {
+    -fx-background-color: #f1f1f1;
+}
+
+.date-picker .button {
+    -fx-background-color: none;
+    -fx-effect: none;
+}
+
+.date-picker .button .label {
+    -fx-text-fill: #000000;
+}
+
+.date-picker-popup > * > .spinner > .button > .left-arrow,
+.date-picker-popup > * > .spinner > .button > .right-arrow {
+    -fx-background-color: #000000;
+}
+
+.date-picker > .arrow-button {
+    -fx-background-color: #000000;
+}
+
+.date-picker > .arrow-button > .arrow {
+    -fx-background-color: #ffffff;
+}
+
+.date-picker .label {
+    -fx-opacity: 1;
+    -fx-text-fill: #000000;
+}
+
+.date-picker-popup > .month-year-pane {
+    -fx-background-color: #d2d2d2;
+}
+
+.header {
+    -fx-font-size: 24pt;
+    -fx-font-weight: bold;
+    -fx-font-style: italic;
+    -fx-opacity: 1;
+}
+
+.labelError {
+    -fx-text-fill: red;
+}
+
+#btnLogin {
+    -fx-background-color: #000000;
+}
+
+#numberPhone {
+    -fx-font-style: italic;
+}

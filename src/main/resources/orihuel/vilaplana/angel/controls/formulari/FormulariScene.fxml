@@ -21,7 +21,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="650.0" prefWidth="560.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orihuel.vilaplana.angel.controls.formulari.FormulariController">
+<AnchorPane prefHeight="711.0" prefWidth="560.0" stylesheets="@../../css/styles.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="orihuel.vilaplana.angel.controls.formulari.FormulariController">
    <children>
       <GridPane layoutX="81.0" layoutY="65.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="20.0">
         <columnConstraints>
@@ -35,7 +35,7 @@
          <children>
             <VBox prefHeight="466.0" prefWidth="394.0" spacing="5.0" GridPane.rowSpan="2">
                <children>
-                  <Label fx:id="labelErrName" prefHeight="17.0" prefWidth="266.0" text="Tens que introduir el nom!" textFill="RED" translateY="5.0">
+                  <Label fx:id="labelErrName" prefHeight="17.0" prefWidth="266.0" styleClass="labelError" text="Tens que introduir el nom!" textFill="RED" translateY="5.0">
                      <VBox.margin>
                         <Insets left="125.0" />
                      </VBox.margin>
@@ -46,10 +46,16 @@
                         <TextField fx:id="txtFieldName" prefHeight="27.0" prefWidth="338.0">
                            <tooltip>
                               <Tooltip text="Introduïsca el teu nom" />
-                           </tooltip></TextField>
+                           </tooltip>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></TextField>
                      </children>
+                     <VBox.margin>
+                        <Insets top="2.0" />
+                     </VBox.margin>
                   </HBox>
-                  <Label fx:id="labelErrSurname" prefHeight="17.0" prefWidth="295.0" text="Tens que introduir el cognom!" textFill="RED" translateY="5.0">
+                  <Label fx:id="labelErrSurname" prefHeight="17.0" prefWidth="295.0" styleClass="labelError" text="Tens que introduir el cognom!" textFill="RED" translateY="5.0">
                      <VBox.margin>
                         <Insets left="125.0" />
                      </VBox.margin>
@@ -60,10 +66,16 @@
                         <TextField fx:id="txtFieldSurname" prefHeight="27.0" prefWidth="338.0">
                            <tooltip>
                               <Tooltip text="Introduïsca el teu cognom ací" />
-                           </tooltip></TextField>
+                           </tooltip>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></TextField>
                      </children>
+                     <VBox.margin>
+                        <Insets top="2.0" />
+                     </VBox.margin>
                   </HBox>
-                  <Label fx:id="labelErrComentary" prefHeight="17.0" prefWidth="295.0" text="Tens que introduir un comentari!" textFill="RED" translateY="5.0">
+                  <Label fx:id="labelErrComentary" prefHeight="17.0" prefWidth="295.0" styleClass="labelError" text="Tens que introduir un comentari!" textFill="RED" translateY="5.0">
                      <VBox.margin>
                         <Insets left="125.0" />
                      </VBox.margin>
@@ -74,10 +86,16 @@
                         <TextArea fx:id="txtFieldCommentary" prefHeight="90.0" prefWidth="336.0" wrapText="true">
                            <tooltip>
                               <Tooltip text="Introduïsca el comentari ací" />
-                           </tooltip></TextArea>
+                           </tooltip>
+                           <HBox.margin>
+                              <Insets top="2.0" />
+                           </HBox.margin></TextArea>
                      </children>
+                     <VBox.margin>
+                        <Insets top="2.0" />
+                     </VBox.margin>
                   </HBox>
-                  <Label fx:id="labelErrSex" prefHeight="17.0" prefWidth="295.0" text="Tens que seleccionar el sexe!" textFill="RED" translateY="5.0">
+                  <Label fx:id="labelErrSex" prefHeight="17.0" prefWidth="295.0" styleClass="labelError" text="Tens que seleccionar el sexe!" textFill="RED" translateY="5.0">
                      <VBox.margin>
                         <Insets left="125.0" />
                      </VBox.margin>
@@ -95,10 +113,16 @@
                         <RadioButton mnemonicParsing="false" prefHeight="27.0" prefWidth="100.0" text="Dona" toggleGroup="$sexGroup">
                            <tooltip>
                               <Tooltip text="Selecciona aquesta si eres dona" />
-                           </tooltip></RadioButton>
+                           </tooltip>
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin></RadioButton>
                      </children>
+                     <VBox.margin>
+                        <Insets top="2.0" />
+                     </VBox.margin>
                   </HBox>
-                  <Label fx:id="labelErrCity" prefHeight="17.0" prefWidth="295.0" text="Tens que seleccionar la ciutat!" textFill="RED" translateY="5.0">
+                  <Label fx:id="labelErrCity" prefHeight="17.0" prefWidth="295.0" styleClass="labelError" text="Tens que seleccionar la ciutat!" textFill="RED" translateY="5.0">
                      <VBox.margin>
                         <Insets left="125.0" />
                      </VBox.margin>
@@ -111,8 +135,11 @@
                               <Tooltip text="Selecciona la ciutat" />
                            </tooltip></ChoiceBox>
                      </children>
+                     <VBox.margin>
+                        <Insets top="2.0" />
+                     </VBox.margin>
                   </HBox>
-                  <Label fx:id="labelErrSO" prefHeight="17.0" prefWidth="295.0" text="Tens que seleccionar el sistema operatiu!" textFill="RED" translateY="8.0">
+                  <Label fx:id="labelErrSO" prefHeight="17.0" prefWidth="295.0" styleClass="labelError" text="Tens que seleccionar el sistema operatiu!" textFill="RED" translateY="8.0">
                      <VBox.margin>
                         <Insets left="125.0" />
                      </VBox.margin>
@@ -129,45 +156,54 @@
                            </tooltip>
                         </ChoiceBox>
                      </children>
+                     <VBox.margin>
+                        <Insets top="2.0" />
+                     </VBox.margin>
                   </HBox>
-                  <Label fx:id="labelErrHours" prefHeight="17.0" prefWidth="295.0" text="Tens que indicar les hores!" textFill="RED" translateY="13.0">
+                  <Label fx:id="labelErrHours" prefHeight="17.0" prefWidth="295.0" styleClass="labelError" text="Tens que indicar les hores!" textFill="RED" translateY="13.0">
                      <VBox.margin>
                         <Insets left="125.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox prefHeight="51.0" prefWidth="394.0" spacing="20.0">
+                  <HBox prefHeight="54.0" prefWidth="391.0" spacing="20.0">
                      <children>
-                        <Label prefHeight="53.0" prefWidth="119.0" text="Hores que passe davant l'ordinador" wrapText="true" />
+                        <Label prefHeight="54.0" prefWidth="122.0" text="Hores que passe davant l'ordinador" wrapText="true" />
                         <Spinner fx:id="choiceHoursComputer" editable="true" initialValue="0" max="1000" min="0" prefHeight="27.0" prefWidth="282.0">
                            <HBox.margin>
-                              <Insets top="10.0" />
+                              <Insets top="15.0" />
                            </HBox.margin>
                            <tooltip>
                               <Tooltip text="Introduïsca les hores en el ordinador" />
                            </tooltip>
                         </Spinner>
                      </children>
+                     <VBox.margin>
+                        <Insets top="2.0" />
+                     </VBox.margin>
                   </HBox>
-                  <Label fx:id="labelErrDate" prefHeight="17.0" prefWidth="295.0" text="Tens que indicar la data!" textFill="RED" translateY="8.0">
+                  <Label fx:id="labelErrDate" prefHeight="17.0" prefWidth="295.0" styleClass="labelError" text="Tens que indicar la data!" textFill="RED" translateY="15.0">
                      <VBox.margin>
                         <Insets left="125.0" />
                      </VBox.margin>
                   </Label>
-                  <HBox prefHeight="34.0" prefWidth="394.0" spacing="20.0">
+                  <HBox prefHeight="56.0" prefWidth="391.0" spacing="20.0">
                      <children>
                         <Label prefHeight="87.0" prefWidth="107.0" text="Data d'emplenat del formulari" wrapText="true" />
-                        <DatePicker fx:id="datePickForm" prefHeight="27.0" prefWidth="271.0">
+                        <DatePicker fx:id="datePickForm" prefHeight="27.0" prefWidth="268.0">
                            <opaqueInsets>
                               <Insets />
                            </opaqueInsets>
                            <HBox.margin>
-                              <Insets top="4.0" />
+                              <Insets top="15.0" />
                            </HBox.margin>
                            <tooltip>
                               <Tooltip text="Introduïsca la data del formulari" />
                            </tooltip>
                         </DatePicker>
                      </children>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </HBox>
                   <Button mnemonicParsing="false" onAction="#handleResum" prefHeight="50.0" prefWidth="394.0" text="Mostrar resum">
                      <VBox.margin>
