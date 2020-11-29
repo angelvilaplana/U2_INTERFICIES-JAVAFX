@@ -1,22 +1,35 @@
 package orihuel.vilaplana.angel.css;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 
 public class RegisterController {
+
+    @FXML
+    private Button btnMode;
 
     private CSSApp app;
 
     @FXML
-    void handleStyle() {
+    public void initialize(CSSApp app) {
+        this.app = app;
+
         if (app.getStyles().equals("styles.css")) {
-            app.setStyles("darkstyles.css");
+            btnMode.setText("Modo nit");
         } else {
-            app.setStyles("styles.css");
+            btnMode.setText("Modo normal");
         }
     }
 
-    public void setApp(CSSApp app) {
-        this.app = app;
+    @FXML
+    private void handleStyle() {
+        if (app.getStyles().equals("styles.css")) {
+            app.setStyles("darkstyles.css");
+            btnMode.setText("Modo normal");
+        } else {
+            app.setStyles("styles.css");
+            btnMode.setText("Modo nit");
+        }
     }
 
 }

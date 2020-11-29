@@ -48,6 +48,10 @@ public class FormulariApp extends Application {
         stage.show();
     }
 
+    public void setPrimaryStage(Stage primaryStage) {
+        this.primaryStage = primaryStage;
+    }
+
     public static void main(String[] args) {
         launch();
     }

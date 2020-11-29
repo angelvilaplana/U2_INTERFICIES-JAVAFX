@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import orihuel.vilaplana.angel.controls.formulari.FormulariController;
 
 import java.io.IOException;
 import java.util.prefs.Preferences;
@@ -62,7 +63,10 @@ public class CSSApp extends Application {
 
         if (nameScene.equals("Registration Form")) {
             RegisterController controller = loader.getController();
-            controller.setApp(this);
+            controller.initialize(this);
+        } else {
+            FormulariController controller = loader.getController();
+            controller.initialize(this);
         }
 
         primaryStage.show();
@@ -75,6 +79,10 @@ public class CSSApp extends Application {
 
     public String getStyles() {
         return preferences.get("styles", "styles.css");
+    }
+
+    public Stage getPrimaryStage() {
+        return primaryStage;
     }
 
     public static void main(String[] args) {

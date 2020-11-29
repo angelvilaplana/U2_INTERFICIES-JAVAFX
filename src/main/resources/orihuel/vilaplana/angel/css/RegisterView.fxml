@@ -7,6 +7,7 @@
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.RadioButton?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -69,9 +70,12 @@
                   <Label alignment="CENTER_RIGHT" nodeOrientation="LEFT_TO_RIGHT" prefHeight="108.0" prefWidth="100.0" text="Donacions" wrapText="true" />
                   <VBox prefHeight="52.0" prefWidth="100.0" spacing="10.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" text="Donar 5 €" />
-                        <RadioButton mnemonicParsing="false" text="Donar 20 €" />
-                        <RadioButton mnemonicParsing="false" text="Donar 10 €" />
+                        <RadioButton mnemonicParsing="false" text="Donar 5 €">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="radioDonation" />
+                           </toggleGroup></RadioButton>
+                        <RadioButton mnemonicParsing="false" text="Donar 20 €" toggleGroup="$radioDonation" />
+                        <RadioButton mnemonicParsing="false" text="Donar 10 €" toggleGroup="$radioDonation" />
                      </children>
                   </VBox>
                </children>
@@ -87,6 +91,6 @@
             <CheckBox mnemonicParsing="false" prefHeight="75.0" prefWidth="240.0" text="Permet l'enviament de correu electrònic amb publicitat de l'empresa" wrapText="true" />
          </children>
       </VBox>
-      <Button layoutX="69.0" layoutY="745.0" mnemonicParsing="false" onAction="#handleStyle" prefHeight="27.0" prefWidth="300.0" text="Modo nit" />
+      <Button fx:id="btnMode" layoutX="69.0" layoutY="745.0" mnemonicParsing="false" onAction="#handleStyle" prefHeight="27.0" prefWidth="300.0" text="Modo nit" />
    </children>
 </AnchorPane>

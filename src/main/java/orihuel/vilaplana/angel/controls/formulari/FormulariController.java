@@ -5,6 +5,7 @@ import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.util.StringConverter;
+import orihuel.vilaplana.angel.css.CSSApp;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -78,6 +79,9 @@ public class FormulariController {
 
     private FormulariApp formulariApp;
 
+    // Aplicació de l'activitat de CSS
+    private CSSApp cssApp;
+
     /**
      * Métode per a detectar d'on iniciem l'aplicació per a poder detectar
      * les finestres quina es la pare i quina es la filla
@@ -92,7 +96,7 @@ public class FormulariController {
      * l'aplicació
      */
     @FXML
-    private void initialize() {
+    public void initialize() {
         // Comprobar els errors que pot produir-se en el formulari
         checkErrorsForm();
 
@@ -188,6 +192,18 @@ public class FormulariController {
                 }
             }
         });
+    }
+
+    /**
+     * Métode per a inicializar el nostre funcionament de
+     * l'aplicació en l'activitat de CSS
+     *
+     * @param cssApp Aplicació principal de l'activitat
+     */
+    @FXML
+    public void initialize(CSSApp cssApp) {
+        this.cssApp = cssApp;
+        initialize();
     }
 
     /**
@@ -360,7 +376,13 @@ public class FormulariController {
     private void handleResum() throws Exception {
         FormulariData formulariData = getFormulariData();
         if (formulariData != null) {
-            formulariApp.showSummary(formulariData);
+            if (formulariApp != null) {
+                formulariApp.showSummary(formulariData);
+            } else {
+                formulariApp = new FormulariApp();
+                formulariApp.setPrimaryStage(cssApp.getPrimaryStage());
+                formulariApp.showSummary(formulariData);
+            }
         }
     }
 

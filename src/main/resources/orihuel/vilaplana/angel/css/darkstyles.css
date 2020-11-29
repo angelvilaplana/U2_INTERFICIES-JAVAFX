@@ -50,6 +50,10 @@
     -fx-background-color: #000000;
 }
 
+.text-area   {
+    -fx-text-fill: #fff;
+}
+
 .check-box .box {
     -fx-background-color: #000000;
     -fx-border-color: #d6d6d6;
@@ -102,6 +106,10 @@
 .radio-button .dot {
     -fx-background-radius: 15px;
     -fx-padding: 4px;
+}
+
+.radio-button:selected .dot {
+    -fx-background-color: #fff;
 }
 
 .radio-button {

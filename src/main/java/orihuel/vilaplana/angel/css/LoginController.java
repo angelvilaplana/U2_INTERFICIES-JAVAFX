@@ -2,15 +2,18 @@ package orihuel.vilaplana.angel.css;
 
 import javafx.fxml.FXML;
 
+import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 
 public class LoginController {
 
     private CSSApp app;
 
     @FXML
-    void handleIniciarSesion() {
-
+    void handleIniciarSesion() throws IOException {
+        String fxml = ".." + File.separator + "controls" + File.separator + "formulari" + File.separator + "FormulariScene.fxml";
+        app.setScene(3, "Formulari", fxml);
     }
 
     @FXML
