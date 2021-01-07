@@ -26,6 +26,7 @@
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleAnimacions" prefHeight="80.0" prefWidth="130.0" text="Animacions" textAlignment="CENTER" wrapText="true" />
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleContenidors" prefHeight="80.0" prefWidth="130.0" text="Contenidors" />
                   <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleControls" prefHeight="80.0" prefWidth="130.0" text="Controls" />
+                  <Button alignment="CENTER" mnemonicParsing="false" onAction="#handleCSS" prefHeight="80.0" prefWidth="130.0" text="CSS" />
                </children>
             </HBox>
             <HBox alignment="CENTER" prefHeight="142.0" prefWidth="560.0" spacing="40.0">

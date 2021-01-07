@@ -4,6 +4,7 @@ import javafx.fxml.FXML;
 import orihuel.vilaplana.angel.animacions.MainScene;
 import orihuel.vilaplana.angel.contenidors.ContenidorsApp;
 import orihuel.vilaplana.angel.controls.ControlsApp;
+import orihuel.vilaplana.angel.css.CSSApp;
 import orihuel.vilaplana.angel.drag_and_drop.DragAndDrop;
 import orihuel.vilaplana.angel.escacs.Escacs;
 import orihuel.vilaplana.angel.listeners.EscacsListeners;
@@ -30,6 +31,11 @@ public class MainController {
     @FXML
     private void handleControls() throws Exception {
         mainApp.displayApplicationSameWindow(new ControlsApp());
+    }
+
+    @FXML
+    private void handleCSS() throws Exception {
+        mainApp.displayApplication(new CSSApp());
     }
 
     @FXML
